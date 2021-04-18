@@ -1,0 +1,25 @@
+[user]
+    name = Xeres
+    email = 294146+xeres@users.noreply.github.com
+
+[pull]
+    ff = only
+
+[pager]
+    log = diff-highlight | less
+    show = diff-highlight | less
+    diff = diff-highlight | less
+[interactive]
+    diffFilter = diff-highlight
+[diff]
+    compactionHeuristic = true
+
+[protocol "codecommit"]
+    allow = always
+
+[credential "https://git-codecommit.*.amazonaws.com"]
+    helper = !aws codecommit credential-helper $@
+    UseHttpPath = true
+
+[includeIf "gitdir:~/repos/works/"]
+    path = ~/repos/works/gitconfig

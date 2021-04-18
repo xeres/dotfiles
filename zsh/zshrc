@@ -1,0 +1,98 @@
+#region powerlevel10k-instant-prompt
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+    source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+#endregion powerlevel10k-instant-prompt
+
+#region zinit-installer
+if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
+    print -P "%F{33}▓▒░ %F{220}Installing %F{33}DHARMA%F{220} Initiative Plugin Manager (%F{33}zdharma/zinit%F{220})…%f"
+    command mkdir -p "$HOME/.zinit" && command chmod g-rwX "$HOME/.zinit"
+    command git clone https://github.com/zdharma/zinit "$HOME/.zinit/bin" && \
+        print -P "%F{33}▓▒░ %F{34}Installation successful.%f%b" || \
+        print -P "%F{160}▓▒░ The clone has failed.%f%b"
+fi
+
+source "$HOME/.zinit/bin/zinit.zsh"
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
+#endregion zinit-intaller
+
+#region zinit-plugins
+zinit light-mode for \
+    zinit-zsh/z-a-rust \
+    zinit-zsh/z-a-as-monitor \
+    zinit-zsh/z-a-patch-dl \
+    zinit-zsh/z-a-bin-gem-node
+
+zinit wait lucid light-mode for \
+    atinit"zicompinit; zicdreplay" \
+        zdharma/fast-syntax-highlighting \
+    atload"_zsh_autosuggest_start" \
+        zsh-users/zsh-autosuggestions \
+    blockf atpull'zinit creinstall -q .' \
+        zsh-users/zsh-completions
+
+export ZSH_TMUX_AUTOSTART=true
+zinit wait lucid for \
+    atclone"curl -sOL https://github.com/ohmyzsh/ohmyzsh/raw/master/plugins/tmux/tmux.extra.conf" \
+        OMZP::tmux
+
+zinit ice atclone"dircolors -b LS_COLORS > clrs.zsh" \
+    atpull'%atclone' pick"clrs.zsh" nocompile'!' \
+    atload'zstyle ":completion:*" list-colors “${(s.:.)LS_COLORS}”'
+zinit light trapd00r/LS_COLORS
+
+zinit ice depth=1; zinit light romkatv/powerlevel10k
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+#endregion zinit-plugins
+
+#region hook
+chpwd() { ls }
+#endregion hook
+
+#region alias
+alias ls='ls --color=auto --file-type'
+alias grep='grep --color=auto'
+alias diff='diff --color=auto'
+#endregion alias
+
+#region changing_directories
+setopt AUTO_CD
+setopt AUTO_PUSHD
+setopt PUSHD_IGNORE_DUPS
+#endregion changing_directories
+
+#region completion
+setopt NO_AUTO_MENU               # 補完時に TAB キーで選択肢を移動しない
+setopt LIST_PACKED                # 補完候補を表示する際に表示を詰める
+#endregion completion
+
+#region history
+export HISTSIZE=10000
+export SAVEHIST=20000
+export HISTFILE=~/.zsh_history
+
+setopt APPEND_HISTORY             # zsh が終了した際に HISTFILE を置き換えるのではなく追記する
+setopt EXTENDED_HISTORY           # HISTFILE にタイムスタンプを記録する
+setopt HIST_EXPIRE_DUPS_FIRST     # 重複する履歴を削除してから保存する
+setopt HIST_IGNORE_ALL_DUPS       # 履歴の内容と重複する行を履歴リストに追加しない
+setopt HIST_IGNORE_SPACE          # 先頭がスペースで始まる行を履歴に追加しない
+setopt HIST_LEX_WORDS             # クォートされた空白を正しく取り扱う
+setopt HIST_NO_STORE              # history コマンドを履歴に追加しない
+setopt HIST_REDUCE_BLANKS         # 履歴に追加する際に不要な空白を取り除く
+setopt HIST_SAVE_NO_DUPS          # HISTFILE に重複する履歴を保存しない
+setopt HIST_VERIFY                # 履歴補完した内容を即実行せず行エディタに読み込む
+setopt SHARE_HISTORY              # 複数の zsh 間で HISTFILE を共有する
+#endregion history
+
+#region zle
+setopt NO_BEEP                    # ビープ無効
+#endregion zle
+
+#region pyenv
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+  export PATH="$PYENV_ROOT/versions/$(pyenv global)/bin:$PATH"
+fi
+#endregion pyenv

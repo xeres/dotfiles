@@ -1,0 +1,7 @@
+mkdir -p "$HOME/.local/bin" && export PATH="$HOME/.local/bin:$PATH"
+
+# less(1) の履歴ファイル (~/.lesshst) を保存しない
+export LESSHISTFILE=-
+
+export PYENV_ROOT="$HOME/.local/share/pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
