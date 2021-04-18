@@ -1,5 +1,5 @@
 .PHONY: init
-init: system zsh git misc tmux aws
+init: system zsh git misc tmux python aws
 
 .PHONY: system
 system:
@@ -24,6 +24,14 @@ tmux-init:
 
 tmux-clean:
 	cd tmux && make clean
+
+.PHONY: python python-init python-clean
+python: python-init
+python-init:
+	cd python && make init
+
+python-clean:
+	cd python && make clean
 
 .PHONY: aws aws-init aws-update aws-clean
 aws: aws-init
