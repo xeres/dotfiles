@@ -96,3 +96,7 @@ if command -v pyenv 1>/dev/null 2>&1; then
   export PATH="$PYENV_ROOT/versions/$(pyenv global)/bin:$PATH"
 fi
 #endregion pyenv
+
+#region n-install
+export N_PREFIX="$HOME/.local/share/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"
+#endregion n-install
