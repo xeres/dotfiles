@@ -1,0 +1,9 @@
+{{- if (eq .chezmoi.os "linux") -}}
+#!/bin/bash
+
+set -e
+
+cat /dev/null | tmux -C
+tmux run-shell ~/.tmux/plugins/tpm/bindings/install_plugins
+tmux kill-session -t $(tmux list-sessions -F '#{session_id}' | tail -1) || :
+{{ end }}

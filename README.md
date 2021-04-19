@@ -1,9 +1,9 @@
-# xeres/dotfiles
+# github.com/xeres/dotfiles
 
-## INSTALL
+Xeres's dotfiles, managed with [`chezmoi`](https://github.com/twpayne/chezmoi).
 
-```shell-console
-git clone https://github.com/xeres/dotfiles/ ~/repos/dotfiles
-cd ~/repos/dotfiles
-make
+Install them with:
+
+```shell-session
+$ chezmoi init xeres
 ```

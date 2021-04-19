@@ -1,0 +1,9 @@
+{{- if (eq .chezmoi.os "linux") -}}
+#!/bin/bash
+
+set -e
+
+sudo apt-get install -y git
+curl -sL --create-dirs -o "$HOME/.local/bin/diff-so-fancy" https://github.com/so-fancy/diff-so-fancy/releases/download/v1.4.0/diff-so-fancy && \
+    chmod +x "$HOME/.local/bin/diff-so-fancy"
+{{ end }}

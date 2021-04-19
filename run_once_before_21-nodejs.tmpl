@@ -1,0 +1,7 @@
+{{- if (eq .chezmoi.os "linux") -}}
+#!/bin/bash
+
+set -e
+
+curl -sL https://git.io/n-install | N_PREFIX="$HOME/.local/share/n" SHELL=zsh bash -s -- -y -n || :
+{{ end }}
