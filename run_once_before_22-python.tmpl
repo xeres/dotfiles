@@ -8,9 +8,10 @@ sudo apt-get install -y --no-install-recommends \
     make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev \
     libsqlite3-dev wget curl llvm libncurses5-dev xz-utils tk-dev \
     libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev
-git clone https://github.com/pyenv/pyenv ~/.local/share/pyenv || :
 
-eval "$(~/.local/share/pyenv/bin/pyenv init -)"
+PYENV_ROOT="$HOME/.local/share/pyenv"
+PATH="$PYENV_ROOT/bin:$PATH"
+git clone https://github.com/pyenv/pyenv $PYENV_ROOT || :
 
 pyenv install -s 3.8.8
 pyenv global 3.8.8
