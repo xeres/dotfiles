@@ -19,6 +19,9 @@ autoload -Uz _zinit
 #endregion zinit-intaller
 
 #region zinit-plugins
+autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
+add-zsh-hook chpwd chpwd_recent_dirs
+
 zinit light-mode for \
     zinit-zsh/z-a-rust \
     zinit-zsh/z-a-as-monitor \
