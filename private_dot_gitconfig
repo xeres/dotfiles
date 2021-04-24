@@ -15,14 +15,17 @@
 [protocol "codecommit"]
     allow = always
 
-[credential "https://git-codecommit.*.amazonaws.com"]
-    helper = !aws codecommit credential-helper $@
-    UseHttpPath = true
-
-[includeIf "gitdir:~/repos/works/"]
-    path = ~/repos/works/gitconfig
-
 [diff-so-fancy]
     markEmptyLines = false
     changeHunkIndicators = false
     stripLeadingSymbols = false
+
+[includeIf "gitdir:~/repos/works/"]
+    path = ~/repos/works/gitconfig
+
+[credential "https://github.com"]
+    helper = lastpass
+
+[credential "https://git-codecommit.*.amazonaws.com"]
+    helper = !aws codecommit credential-helper $@
+    UseHttpPath = true
