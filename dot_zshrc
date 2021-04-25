@@ -67,6 +67,9 @@ bindkey '^x^g' anyframe-widget-cd-ghq-repository
 bindkey '^x^k' anyframe-widget-kill
 bindkey '^x^r' anyframe-widget-put-history
 zstyle ":anyframe:selector:" use fzf-tmux
+
+zinit ice lucid as"program" pick"bin/git-dsf"
+zinit light zdharma/zsh-diff-so-fancy
 #endregion zinit-plugins
 
 #region alias

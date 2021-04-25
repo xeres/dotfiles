@@ -3,9 +3,7 @@
 
 set -e
 
-sudo apt-get install -y git
-curl -sL --create-dirs -o "$HOME/.local/bin/diff-so-fancy" https://github.com/so-fancy/diff-so-fancy/releases/download/v1.4.0/diff-so-fancy && \
-    chmod +x "$HOME/.local/bin/diff-so-fancy"
+sudo apt-get install -y git"
 curl -sL --create-dirs -o "$HOME/.local/bin/git-credential-lastpass" https://github.com/lastpass/lastpass-cli/raw/v1.3.3/contrib/examples/git-credential-lastpass && \
     sed -e 's,--password,--field=personal_access_token,' -i "$HOME/.local/bin/git-credential-lastpass" && \
     chmod +x "$HOME/.local/bin/git-credential-lastpass"
