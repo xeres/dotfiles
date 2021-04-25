@@ -56,6 +56,13 @@ zinit light junegunn/fzf
 #zinit ice lucid multisrc"shell/{completion,key-bindings}.zsh" id-as"junegunn/fzf_completions" pick"/dev/null"
 #zinit light junegunn/fzf
 
+zinit light mollifier/anyframe
+bindkey '^x^b' anyframe-widget-cdr
+bindkey '^x^f' anyframe-widget-insert-filename
+bindkey '^x^g' anyframe-widget-cd-ghq-repository
+bindkey '^x^k' anyframe-widget-kill
+bindkey '^x^r' anyframe-widget-put-history
+zstyle ":anyframe:selector:" use fzf-tmux
 #endregion zinit-plugins
 
 #region alias
