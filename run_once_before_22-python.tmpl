@@ -9,10 +9,10 @@ sudo apt-get install -y --no-install-recommends \
     libsqlite3-dev wget curl llvm libncurses5-dev xz-utils tk-dev \
     libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev
 
-PYENV_ROOT="$HOME/.local/share/pyenv"
-PATH="$PYENV_ROOT/bin:$PATH"
+export PYENV_ROOT="$HOME/.local/share/pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
 git clone https://github.com/pyenv/pyenv $PYENV_ROOT || :
 
-pyenv install -s 3.8.8
-pyenv global 3.8.8
+"$PYENV_ROOT/bin/pyenv" install -s 3.8.8
+"$PYENV_ROOT/bin/pyenv" global 3.8.8
 {{ end }}
