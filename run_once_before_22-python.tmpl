@@ -13,4 +13,11 @@ export PYENV_ROOT="$HOME/.local/share/pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 [ -d $PYENV_ROOT ] || \
     git clone https://github.com/pyenv/pyenv $PYENV_ROOT
+
+mkdir -p ~/.pyenv/plugins
+
+[ -d ~/.pyenv/plugins/pyenv-doctor ] || \
+    git clone https://github.com/pyenv/pyenv-doctor.git ~/.pyenv/plugins/pyenv-doctor
+[ -d ~/.pyenv/plugins/pyenv-update ] || \
+    git clone https://github.com/pyenv/pyenv-update.git ~/.pyenv/plugins/pyenv-update
 {{ end }}
