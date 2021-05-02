@@ -14,7 +14,4 @@ curl -s "https://s3.amazonaws.com/session-manager-downloads/plugin/latest/ubuntu
     dpkg-deb -x session-manager-plugin.deb session-manager-plugin && \
     cp session-manager-plugin/usr/local/sessionmanagerplugin/bin/session-manager-plugin ~/.local/bin && \
     rm -rf session-manager-plugin.deb session-manager-plugin
-
-pip3.8 install git-remote-codecommit
-pip3.8 install aws-sso-util
 {{ end }}
