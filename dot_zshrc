@@ -36,7 +36,6 @@ zinit wait lucid light-mode for \
     blockf atpull'zinit creinstall -q .' \
         zsh-users/zsh-completions
 
-export ZSH_TMUX_AUTOSTART=true
 zinit wait lucid for \
     atclone"curl -sOL https://github.com/ohmyzsh/ohmyzsh/raw/master/plugins/tmux/tmux.extra.conf" \
         OMZP::tmux
@@ -56,7 +55,6 @@ zinit light junegunn/fzf
 zinit ice lucid multisrc"shell/{completion,key-bindings}.zsh" id-as"junegunn/fzf_completions" pick"/dev/null"
 zinit light junegunn/fzf
 
-export GHQ_ROOT=~/repos
 zinit ice from"gh-r" as"command" pick"*/ghq"
 zinit light x-motemen/ghq
 
@@ -94,10 +92,6 @@ setopt LIST_PACKED                # 補完候補を表示する際に表示を�
 #endregion completion
 
 #region history
-export HISTSIZE=10000
-export SAVEHIST=20000
-export HISTFILE=~/.zsh_history
-
 setopt APPEND_HISTORY             # zsh が終了した際に HISTFILE を置き換えるのではなく追記する
 setopt EXTENDED_HISTORY           # HISTFILE にタイムスタンプを記録する
 setopt HIST_EXPIRE_DUPS_FIRST     # 重複する履歴を削除してから保存する
@@ -122,5 +116,5 @@ fi
 #endregion pyenv
 
 #region n-install
-export N_PREFIX="$HOME/.local/share/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"
+[[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"
 #endregion n-install
