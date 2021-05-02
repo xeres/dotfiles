@@ -16,6 +16,8 @@ fi
 source "$HOME/.zinit/bin/zinit.zsh"
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
+
+unalias zi zini zpl zplg
 #endregion zinit-intaller
 
 #region zinit-plugins
