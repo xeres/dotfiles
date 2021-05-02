@@ -118,7 +118,6 @@ setopt NO_BEEP                    # ビープ無効
 #region pyenv
 if command -v pyenv 1>/dev/null 2>&1; then
   eval "$(pyenv init -)"
-  export PATH="$PYENV_ROOT/versions/$(pyenv global)/bin:$PATH"
 fi
 #endregion pyenv
 
