@@ -4,5 +4,7 @@
 set -e
 
 sudo apt-get install -y make
-curl -sL https://git.io/n-install | N_PREFIX="$HOME/.local/share/n" SHELL=zsh bash -s -- -y -n || :
+
+[ -d ~/.local/share/n ] || \
+    curl -sL https://git.io/n-install | N_PREFIX=~/.local/share/n SHELL=zsh bash -s -- -y -n
 {{ end }}

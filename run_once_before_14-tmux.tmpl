@@ -4,5 +4,6 @@
 set -e
 
 sudo apt-get install -y tmux
-git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm || :
+[ -d ~/.tmux/plugins/tpm ] \\ |
+    git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 {{ end }}
