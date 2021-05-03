@@ -51,6 +51,12 @@ zinit light trapd00r/LS_COLORS
 zinit ice depth=1; zinit light romkatv/powerlevel10k
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
+zinit lucid from:'gh-r' \
+            as:'program' \
+            pick:'delta*/delta' \
+            light-mode \
+            for @dandavison/delta
+
 zinit ice from"gh-r" as"command"
 zinit light junegunn/fzf
 zinit ice lucid as"command" id-as"junegunn/fzf-tmux" pick"bin/fzf-tmux"
@@ -68,12 +74,6 @@ bindkey '^x^g' anyframe-widget-cd-ghq-repository
 bindkey '^x^k' anyframe-widget-kill
 bindkey '^x^r' anyframe-widget-put-history
 zstyle ":anyframe:selector:" use fzf-tmux
-
-  zinit lucid from:'gh-r' \
-              as:'program' \
-              pick:'delta*/delta' \
-              light-mode \
-              for @dandavison/delta
 #endregion zinit-plugins
 
 #region alias
