@@ -69,8 +69,11 @@ bindkey '^x^k' anyframe-widget-kill
 bindkey '^x^r' anyframe-widget-put-history
 zstyle ":anyframe:selector:" use fzf-tmux
 
-zinit ice lucid as"program" pick"bin/git-dsf"
-zinit light zdharma/zsh-diff-so-fancy
+  zinit lucid from:'gh-r' \
+              as:'program' \
+              pick:'delta*/delta' \
+              light-mode \
+              for @dandavison/delta
 #endregion zinit-plugins
 
 #region alias
