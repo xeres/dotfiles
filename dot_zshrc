@@ -41,6 +41,7 @@ zinit wait lucid light-mode for \
 zinit wait lucid for \
     atclone"curl -sOL https://github.com/ohmyzsh/ohmyzsh/raw/master/plugins/tmux/tmux.extra.conf" \
         OMZP::tmux
+unalias ta tad ts tl tksv tkss
 
 zinit ice atclone"dircolors -b LS_COLORS > clrs.zsh" \
     atpull'%atclone' pick"clrs.zsh" nocompile'!' \
