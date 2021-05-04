@@ -1,3 +1,4 @@
+# -*- shellscript -*-
 mkdir -p "$HOME/.local/bin" && export PATH="$HOME/.local/bin:$PATH"
 
 # less(1) の履歴ファイル (~/.lesshst) を保存しない
