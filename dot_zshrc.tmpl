@@ -161,12 +161,20 @@ setopt SHARE_HISTORY              # 複数の zsh 間で HISTFILE を共有す�
 setopt NO_BEEP                    # ビープ無効
 #endregion zle
 
+#region n-install
+[[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"
+#endregion n-install
+
 #region pyenv
 if command -v pyenv 1>/dev/null 2>&1; then
   eval "$(pyenv init -)"
 fi
 #endregion pyenv
 
-#region n-install
-[[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"
-#endregion n-install
+#region pipx
+if command -v pipx 1>/dev/null 2>&1; then
+    autoload -U bashcompinit
+    bashcompinit
+    eval "$(register-python-argcomplete pipx)"
+fi
+#endregion pipx
