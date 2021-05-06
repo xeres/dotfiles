@@ -1,3 +1,5 @@
+Dockerfile
 LICENSE
+Makefile
 README.md
 install.sh
