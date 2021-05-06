@@ -22,27 +22,19 @@ unalias zi zini zpl zplg
 #endregion zinit-intaller
 
 #region zinit-plugins
-autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
-add-zsh-hook chpwd chpwd_recent_dirs
-
-zinit light-mode for \
-    zinit-zsh/z-a-rust \
-    zinit-zsh/z-a-as-monitor \
-    zinit-zsh/z-a-patch-dl \
-    zinit-zsh/z-a-bin-gem-node
-
-zinit wait lucid light-mode for \
-    atinit"zicompinit; zicdreplay" \
-        zdharma/fast-syntax-highlighting \
+zinit lucid wait light-mode for \
     atload"_zsh_autosuggest_start" \
         zsh-users/zsh-autosuggestions \
-    blockf atpull'zinit creinstall -q .' \
-        zsh-users/zsh-completions
+    atinit"zicompinit; zicdreplay" \
+        zdharma/fast-syntax-highlighting
 
+# This plugin provides aliases for tmux and automatically start tmux
 zinit wait lucid for \
     atclone"curl -sOL https://github.com/ohmyzsh/ohmyzsh/raw/master/plugins/tmux/tmux.extra.conf" \
+    atload'unalias ta tad ts tl tksv tkss' \
         OMZP::tmux
 
+# A collection of LS_COLORS definitions
 zinit ice atclone"dircolors -b LS_COLORS > clrs.zsh" \
     atpull'%atclone' pick"clrs.zsh" nocompile'!' \
     atload'zstyle ":completion:*" list-colors “${(s.:.)LS_COLORS}”'
@@ -51,22 +43,76 @@ zinit light trapd00r/LS_COLORS
 zinit ice depth=1; zinit light romkatv/powerlevel10k
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-zinit lucid from:'gh-r' \
-            as:'program' \
-            pick:'delta*/delta' \
-            light-mode \
-            for @dandavison/delta
-
-zinit ice from"gh-r" as"command"
-zinit light junegunn/fzf
-zinit ice lucid as"command" id-as"junegunn/fzf-tmux" pick"bin/fzf-tmux"
-zinit light junegunn/fzf
-zinit ice lucid multisrc"shell/{completion,key-bindings}.zsh" id-as"junegunn/fzf_completions" pick"/dev/null"
-zinit light junegunn/fzf
-
+## alternatives for GNU coreutils
+# /bin/cat: A cat(1) clone with wings.
+zinit ice as"command" from"gh-r" mv"bat*/bat -> bat" pick"bat"
+zinit light sharkdp/bat
+# /bin/ls: A modern replacement for 'ls'.
+zinit ice as"command" from"gh-r" pick"bin/exa" mv"completions/*.zsh -> _exa"
+zinit light ogham/exa
+# /usr/bin/du: A more intuitive version of du in rust
+zinit ice as"command" from"gh-r" mv"dust*unknown-linux-gnu/dust -> dust" pick"dust"
+zinit light bootandy/dust
+## alternatives for GNU findutils
+# /usr/bin/find: A simple, fast and user-friendly alternative to 'find'
+zinit ice as"command" from"gh-r" mv"fd* -> fd" bpick"*x86_64-unknown-linux-gnu*" pick"fd/fd"
+zinit light sharkdp/fd
+## alternative for GNU diffutils
+# A viewer for git and diff output
+zinit ice as"command" from"gh-r" mv"*x86_64-unknown-linux-gnu/delta -> delta" bpick"*x86_64-unknown-linux-gnu*" pick"delta"
+zinit light dandavison/delta
+## alternative for grep
+# /bin/grep: ripgrep recursively searches directories for a regex pattern while respecting your gitignore
+zinit ice as"command" from"gh-r" mv"ripgrep* -> ripgrep" pick"ripgrep/rg"
+zinit light BurntSushi/ripgrep
+## alternative for sed
+# /bin/sed: Intuitive find & replace CLI (sed alternative)
+zinit ice as"command" from"gh-r" mv"sd* -> sd" pick"sd"
+zinit light chmln/sd
+## alternative for procps
+# /bin/ps: A modern replacement for ps written in Rust
+zinit ice as"command" from"gh-r" bpick"*lnx*"
+zinit light dalance/procs
+## benchmarktools
+# A command-line benchmarking tool
+zinit ice as"command" from"gh-r" mv"hyperfine*/hyperfine -> hyperfine" pick"sharkdp/hyperfine"
+zinit light sharkdp/hyperfine
+# It's like curl -v, with graphs and colors
+zinit ice as"command" cp"httpstat.sh -> httpstat" pick"httpstat"
+zinit light b4b4r07/httpstat
+# Simple command-line snippet manager, written in Go.
+zinit ice as"command" from"gh-r" bpick"pet_*_linux_amd64.tar.gz" pick"pet"
+zinit light knqyf263/pet
+# Remote repository management made easy
 zinit ice from"gh-r" as"command" pick"*/ghq"
 zinit light x-motemen/ghq
-
+## utilities
+# A very fast implementation of tldr in Rust.
+zinit ice as"command" from"gh-r" mv"tldr* -> tldr" pick"tldr"
+zinit light dbrgn/tealdeer
+# A command-line tool and library for generating regular expressions from user-provided test cases
+zinit ice as"command" from"gh-r" pick"pemistahl/grex"
+zinit light pemistahl/grex
+# Remote repository management made easy
+zinit ice from"gh-r" as"command" pick"*/ghq"
+zinit light x-motemen/ghq
+## completions
+# A command-line fuzzy finder
+zinit ice from"gh-r" as"command"
+zinit light junegunn/fzf
+zinit ice id-as"junegunn/fzf-tmux" as"command" pick"bin/fzf-tmux"
+zinit light junegunn/fzf
+zinit ice id-as"junegunn/fzf-completions" mv"shell/completion.zsh -> _fzf" src"shell/key-bindings.zsh" pick"/dev/null"
+zinit light junegunn/fzf
+# Replace zsh's default completion selection menu with fzf!
+#zinit ice wait"1" lucid
+#zinit light Aloxaf/fzf-tab
+# enable cdr
+autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
+add-zsh-hook chpwd chpwd_recent_dirs
+mkdir -p "${XDG_CACHE_HOME:-$HOME/.cache}"
+zstyle ':chpwd:*' recent-dirs-file "${XDG_CACHE_HOME:-$HOME/.cache}/chpwd-recent-dirs"
+# peco/percol/fzf wrapper plugin for zsh
 zinit light mollifier/anyframe
 bindkey '^x^b' anyframe-widget-cdr
 bindkey '^x^f' anyframe-widget-insert-filename
