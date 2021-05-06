@@ -6,6 +6,8 @@ set -e
 
 {{ if (and (eq .chezmoi.osRelease.id "ubuntu") (eq .chezmoi.osRelease.versionID "18.04")) -}}
 sudo apt-get install -y python3{,-{pip,venv}}
+{{ else -}}
+sudo apt-get install -y python3-{pip,venv}
 {{ end }}
 
 # SEE ALSO: https://github.com/pyenv/pyenv/wiki#suggested-build-environment
@@ -28,9 +30,7 @@ mkdir -p $PYENV_ROOT/plugins
 [ -d $PYENV_ROOT/plugins/pyenv-pip-rehash ] || \
     git clone https://github.com/pyenv/pyenv-pip-rehash.git $PYENV_ROOT/plugins/pyenv-pip-rehash
 
-if [ ! -d $PYENV_ROOT/versions/3.8.8 ]; then
-    pyenv install 3.8.8
-fi
+pyenv install -s 3.8.8
 pyenv global 3.8.8
 
 python3 -m pip install pipx
