@@ -1,0 +1,11 @@
+{{- if (eq .chezmoi.os "linux") -}}
+#!/bin/bash
+# -*- shellscript -*-
+
+set -e
+
+sudo tee /etc/apt/apt.conf.d/00-no-install-recommends << __EOF__ >/dev/null
+APT::Install-Recommends 0;
+APT::Install-Suggests 0;
+__EOF__
+{{ end }}
