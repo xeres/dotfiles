@@ -1,8 +1,0 @@
-{{- if (eq .chezmoi.os "linux") -}}
-#!/bin/bash
-# -*- shellscript -*-
-
-set -e
-
-sudo usermod -aG docker $USER
-{{ end }}
