@@ -3,7 +3,6 @@
 # -*- shellscript -*-
 
 set -e
-[ -f ./dot_zshenv ] && source ./dot_zshenv
 
 sudo apt-get install -y jq
 
@@ -17,6 +16,8 @@ curl -s "https://s3.amazonaws.com/session-manager-downloads/plugin/latest/ubuntu
     cp session-manager-plugin/usr/local/sessionmanagerplugin/bin/session-manager-plugin ~/.local/bin && \
     rm -rf session-manager-plugin.deb session-manager-plugin
 
+export PIPX_HOME="$HOME/.local/share/pipx"
+export PIPX_DEFAULT_PYTHON="$PYENV_ROOT/versions/3.8.8/bin/python"
 pipx install -f git-remote-codecommit
 pipx install -f aws-sam-cli
 pipx install -f cfn-lint
