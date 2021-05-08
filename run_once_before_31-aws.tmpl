@@ -17,7 +17,7 @@ curl -s "https://s3.amazonaws.com/session-manager-downloads/plugin/latest/ubuntu
     cp session-manager-plugin/usr/local/sessionmanagerplugin/bin/session-manager-plugin ~/.local/bin && \
     rm -rf session-manager-plugin.deb session-manager-plugin
 
-pipx install git-remote-codecommit
-pipx install aws-sam-cli
-pipx install cfn-lint
+pipx install -f git-remote-codecommit
+pipx install -f aws-sam-cli
+pipx install -f cfn-lint
 {{ end }}
