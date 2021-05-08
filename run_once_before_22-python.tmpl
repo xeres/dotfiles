@@ -3,7 +3,6 @@
 # -*- shellscript -*-
 
 set -e
-[ -f ./dot_zshenv ] && source ./dot_zshenv
 
 {{ if (and (eq .chezmoi.osRelease.id "ubuntu") (eq .chezmoi.osRelease.versionID "18.04")) -}}
 sudo apt-get install -y python3{,-{pip,venv}}
@@ -17,6 +16,8 @@ sudo apt-get install -y --no-install-recommends \
     libsqlite3-dev wget curl llvm libncurses5-dev xz-utils tk-dev \
     libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev
 
+export PYENV_ROOT="$HOME/.local/share/pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
 [ -d $PYENV_ROOT ] || \
     git clone https://github.com/pyenv/pyenv $PYENV_ROOT
 
@@ -32,6 +33,8 @@ mkdir -p $PYENV_ROOT/plugins
 pyenv install -s 3.8.8
 pyenv global 3.8.8
 
+export PIPX_HOME="$HOME/.local/share/pipx"
+export PIPX_DEFAULT_PYTHON="$PYENV_ROOT/versions/3.8.8/bin/python"
 python3 -m pip install pipx
 python3 -m pipx ensurepath
 {{ end }}
