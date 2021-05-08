@@ -14,7 +14,5 @@ USER testuser
 ENV USER=testuser
 
 RUN \
-    sh -c "$(curl -fsLS git.io/chezmoi)" -- -b ~/.local/bin && \
     PATH="$HOME/.local/bin:$PATH" && \
-    chezmoi init xeres && \
-    chezmoi apply
+    sh -c "$(curl -fsLS git.io/chezmoi)" -- -b ~/.local/bin init xeres --apply
