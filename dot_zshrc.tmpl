@@ -25,7 +25,7 @@ unalias zi zini zpl zplg
 zinit lucid wait light-mode for \
     atload"_zsh_autosuggest_start" \
         zsh-users/zsh-autosuggestions \
-    atinit"zicompinit; zicdreplay" \
+    atinit"typeset -gA FAST_HIGHLIGHT; FAST_HIGHLIGHT[git-cmsg-len]=73; zicompinit; zicdreplay" \
         zdharma/fast-syntax-highlighting
 
 # This plugin provides aliases for tmux and automatically start tmux
