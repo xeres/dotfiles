@@ -93,6 +93,9 @@ zinit light dbrgn/tealdeer
 # A command-line tool and library for generating regular expressions from user-provided test cases
 zinit ice as"command" from"gh-r" pick"pemistahl/grex"
 zinit light pemistahl/grex
+# GitHub’s official command line tool
+zinit ice as"command" from"gh-r" pick"usr/bin/gh"
+zinit light "cli/cli"
 # Remote repository management made easy
 zinit ice from"gh-r" as"command" pick"*/ghq"
 zinit light x-motemen/ghq
