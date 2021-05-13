@@ -29,10 +29,12 @@ zinit lucid wait light-mode for \
         zdharma/fast-syntax-highlighting
 
 # This plugin provides aliases for tmux and automatically start tmux
-zinit wait lucid for \
-    atclone"curl -sOL https://github.com/ohmyzsh/ohmyzsh/raw/master/plugins/tmux/tmux.extra.conf" \
-    atload'unalias ta tad ts tl tksv tkss' \
-        OMZP::tmux
+if [ "$TERM_PROGRAM" != "vscode" ]; then
+    zinit wait lucid for \
+        atclone"curl -sOL https://github.com/ohmyzsh/ohmyzsh/raw/master/plugins/tmux/tmux.extra.conf" \
+        atload'unalias ta tad ts tl tksv tkss' \
+            OMZP::tmux
+fi
 
 # A collection of LS_COLORS definitions
 zinit ice atclone"dircolors -b LS_COLORS > clrs.zsh" \
