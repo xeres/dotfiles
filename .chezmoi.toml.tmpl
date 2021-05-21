@@ -1,0 +1,12 @@
+{{- $op_subdomain  := "my" -}}
+{{- $op_email := "username@example.com" -}}
+{{- if stdinIsATTY -}}
+{{-   $op_subdomain  = promptString "Enter the Sub-domain for 1Password" -}}
+{{-   $op_email = promptString "Enter the E-mail Address <subdomain>.1password.com" -}}
+{{- end -}}
+
+[onepassword]
+  cache = true
+[data]
+  op_subdomain = "{{ $op_subdomain }}"
+  op_email = "{{ $op_email }}"
