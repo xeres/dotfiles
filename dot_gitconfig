@@ -27,7 +27,7 @@
     path = ~/repos/works/gitconfig
 
 [credential "https://github.com"]
-    helper = 1password -c 3000
+    helper = 1password
 
 [credential "https://git-codecommit.*.amazonaws.com"]
     helper = !aws codecommit credential-helper $@
