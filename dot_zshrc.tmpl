@@ -112,6 +112,24 @@ zinit ice id-as"junegunn/fzf-tmux" as"command" pick"bin/fzf-tmux"
 zinit light junegunn/fzf
 zinit ice id-as"junegunn/fzf-completions" mv"shell/completion.zsh -> _fzf" src"shell/key-bindings.zsh" pick"/dev/null"
 zinit light junegunn/fzf
+# Kubernetes uses a command line utility called kubectl for communicating with the cluster API server
+zinit ice id-as="kubectl" as"command"
+zinit snippet https://amazon-eks.s3.us-west-2.amazonaws.com/1.20.4/2021-04-12/bin/linux/amd64/kubectl
+zinit light-mode lucid wait has"kubectl" for \
+    id-as"kubectl-completion" \
+    as"completion" \
+    atclone"kubectl completion zsh > _kubectl" \
+    atpull"%atclone" \
+    zdharma/null
+# The eksctl command line utility provides the fastest and easiest way to create a new cluster with nodes for Amazon EKS
+zinit ice from"gh-r" as"command" pick"eksctl"
+zinit light weaveworks/eksctl
+zinit light-mode lucid wait has"eksctl" for \
+    id-as"eksctl-completion" \
+    as"completion" \
+    atclone"eksctl completion zsh > _eksctl" \
+    atpull"%atclone" \
+    zdharma/null
 # Replace zsh's default completion selection menu with fzf!
 #zinit ice wait"1" lucid
 #zinit light Aloxaf/fzf-tab
@@ -135,6 +153,27 @@ alias ls='ls --color=auto --file-type'
 alias grep='grep --color=auto'
 alias diff='diff --color=auto'
 #endregion alias
+
+#region lazyload-completions
+if type kubectl > /dev/null 2>&1 ;then
+    function kubectl() {
+        if ! type __start_kubectl >/dev/null 2>&1; then
+            source <(command kubectl completion zsh)
+        fi
+        command kubectl "$@"
+    }
+fi
+
+# eksctl
+if type eksctl > /dev/null 2>&1 ;then
+    function eksctl() {
+        if ! type __start_eksctl >/dev/null 2>&1; then
+            source <(command eksctl completion zsh)
+        fi
+        command eksctl "$@"
+    }
+fi
+#endregion lazyload-completions
 
 #region hook
 chpwd() ls
