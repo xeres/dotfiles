@@ -2,6 +2,9 @@
     name = Xeres
     email = 294146+xeres@users.noreply.github.com
 
+[init]
+    defaultBranch = main
+
 [pull]
     ff = only
 
