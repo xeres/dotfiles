@@ -154,27 +154,6 @@ alias grep='grep --color=auto'
 alias diff='diff --color=auto'
 #endregion alias
 
-#region lazyload-completions
-if type kubectl > /dev/null 2>&1 ;then
-    function kubectl() {
-        if ! type __start_kubectl >/dev/null 2>&1; then
-            source <(command kubectl completion zsh)
-        fi
-        command kubectl "$@"
-    }
-fi
-
-# eksctl
-if type eksctl > /dev/null 2>&1 ;then
-    function eksctl() {
-        if ! type __start_eksctl >/dev/null 2>&1; then
-            source <(command eksctl completion zsh)
-        fi
-        command eksctl "$@"
-    }
-fi
-#endregion lazyload-completions
-
 #region hook
 chpwd() ls
 #endregion hook
