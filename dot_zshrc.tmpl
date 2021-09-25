@@ -120,7 +120,7 @@ zinit ice id-as"junegunn/fzf-completions" mv"shell/completion.zsh -> _fzf" src"s
 zinit light junegunn/fzf
 # The AWS Amplify CLI is a toolchain for simplifying serverless web and mobile development.
 zinit ice as"command" from"gh-r" bpick"*linux*" mv"amplify* -> amplify" pick"amplify" ver="tag/$(curl -sL https://api.github.com/repos/aws-amplify/amplify-cli/releases/latest | jq -r .tag_name)"
-zinit load aws-amplify/amplify-cli
+zinit light aws-amplify/amplify-cli
 # Kubernetes uses a command line utility called kubectl for communicating with the cluster API server
 zinit ice id-as="kubectl" as"command"
 zinit snippet https://amazon-eks.s3.us-west-2.amazonaws.com/1.20.4/2021-04-12/bin/linux/amd64/kubectl
