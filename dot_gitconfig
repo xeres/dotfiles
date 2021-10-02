@@ -26,9 +26,6 @@
 [protocol "codecommit"]
     allow = always
 
-[includeIf "gitdir:~/repos/works/"]
-    path = ~/repos/works/gitconfig
-
 [credential "https://github.com"]
     helper = 1password
 

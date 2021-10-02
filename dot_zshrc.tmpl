@@ -200,6 +200,10 @@ setopt SHARE_HISTORY              # 複数の zsh 間で HISTFILE を共有す�
 setopt NO_BEEP                    # ビープ無効
 #endregion zle
 
+#region direnv
+eval "$(direnv hook zsh)"
+#endregion direnv
+
 #region pipx
 if command -v pipx 1>/dev/null 2>&1; then
     autoload -U bashcompinit
