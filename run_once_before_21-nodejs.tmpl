@@ -1,6 +1,4 @@
-{{- if (eq .chezmoi.os "linux") -}}
 #!/bin/bash
-# -*- shellscript -*-
 
 set -e
 
@@ -9,4 +7,3 @@ sudo apt-get install -y make
 export N_PREFIX="$HOME/.local/share/n"
 [ -d ~/.local/share/n ] || \
     curl -sL https://git.io/n-install | SHELL=zsh bash -s -- -y -n
-{{ end }}

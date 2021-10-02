@@ -1,9 +1,6 @@
-{{- if (eq .chezmoi.os "linux") -}}
 #!/bin/bash
-# -*- shellscript -*-
 
 set -e
 
 sudo apt-get install -y zip unzip \
                         tofrodos
-{{ end }}
