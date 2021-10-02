@@ -1,0 +1,17 @@
+#!/bin/bash
+
+set -e
+
+source ~/.zshenv
+export PATH="$ASDF_DIR/bin:$PATH"
+
+sudo apt-get install -y \
+    bash curl \
+    gpg dirmngr
+
+if ! asdf plugin list | grep -q "^nodejs$"; then
+    asdf plugin add nodejs
+fi
+
+asdf install nodejs lts
+asdf global nodejs lts

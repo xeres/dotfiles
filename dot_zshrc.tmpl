@@ -46,6 +46,9 @@ zinit light trapd00r/LS_COLORS
 zinit ice depth=1; zinit light romkatv/powerlevel10k
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
+# Extendable version manager with support for Ruby, Node.js, Elixir, Erlang & more
+zinit ice as"program" ver"v0.8.1" src"asdf.sh"
+zinit light asdf-vm/asdf
 ## alternatives for GNU coreutils
 # /bin/cat: A cat(1) clone with wings.
 zinit ice as"command" from"gh-r" mv"bat*/bat -> bat" pick"bat"
@@ -196,16 +199,6 @@ setopt SHARE_HISTORY              # 複数の zsh 間で HISTFILE を共有す�
 #region zle
 setopt NO_BEEP                    # ビープ無効
 #endregion zle
-
-#region n-install
-[[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"
-#endregion n-install
-
-#region pyenv
-if command -v pyenv 1>/dev/null 2>&1; then
-  eval "$(pyenv init --path)"
-fi
-#endregion pyenv
 
 #region pipx
 if command -v pipx 1>/dev/null 2>&1; then
