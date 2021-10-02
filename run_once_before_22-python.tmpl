@@ -1,6 +1,4 @@
-{{- if (eq .chezmoi.os "linux") -}}
 #!/bin/bash
-# -*- shellscript -*-
 
 set -e
 
@@ -37,4 +35,3 @@ export PIPX_HOME="$HOME/.local/share/pipx"
 export PIPX_DEFAULT_PYTHON="$PYENV_ROOT/versions/3.8.8/bin/python"
 python3 -m pip install pipx
 python3 -m pipx ensurepath
-{{ end }}

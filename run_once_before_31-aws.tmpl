@@ -1,6 +1,4 @@
-{{- if (eq .chezmoi.os "linux") -}}
 #!/bin/bash
-# -*- shellscript -*-
 
 set -e
 
@@ -29,4 +27,3 @@ pipx install -f git-remote-codecommit
 pipx install -f aws-sam-cli
 pipx install -f cfn-lint
 pipx install -f aws-sso-util
-{{ end }}
