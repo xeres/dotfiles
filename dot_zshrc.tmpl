@@ -122,6 +122,9 @@ zinit ice id-as"junegunn/fzf-tmux" as"command" pick"bin/fzf-tmux"
 zinit light junegunn/fzf
 zinit ice id-as"junegunn/fzf-completions" mv"shell/completion.zsh -> _fzf" src"shell/key-bindings.zsh" pick"/dev/null"
 zinit light junegunn/fzf
+# Guard offers a policy-as-code domain-specific language (DSL) to write rules and validate JSON- and YAML-formatted data such as CloudFormation Templates, K8s configurations, and Terraform JSON plans/configurations against those rules.
+zinit ice as"command" from"gh-r" bpick"*ubuntu*" mv"cfn-guard-v2-ubuntu-latest/cfn-guard -> cfn-guard" pick"cfn-guard"
+zinit load aws-cloudformation/cloudformation-guard
 # The AWS Amplify CLI is a toolchain for simplifying serverless web and mobile development.
 zinit ice as"command" from"gh-r" bpick"*linux*" mv"amplify* -> amplify" pick"amplify" ver="tag/$(curl -sL https://api.github.com/repos/aws-amplify/amplify-cli/releases/latest | jq -r .tag_name)"
 zinit light aws-amplify/amplify-cli
