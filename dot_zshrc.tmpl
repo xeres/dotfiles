@@ -8,9 +8,9 @@ fi
 
 #region zinit-installer
 if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
-    print -P "%F{33}▓▒░ %F{220}Installing %F{33}DHARMA%F{220} Initiative Plugin Manager (%F{33}zdharma/zinit%F{220})…%f"
+    print -P "%F{33}▓▒░ %F{160}Installing %F{33}ZINIT%F{160} Initiative Plugin Manager (%F{33}z-shell/zinit%F{160})…%f"
     command mkdir -p "$HOME/.zinit" && command chmod g-rwX "$HOME/.zinit"
-    command git clone https://github.com/zdharma/zinit "$HOME/.zinit/bin" && \
+    command git clone -q https://github.com/z-shell/zinit "$HOME/.zinit/bin" && \
         print -P "%F{33}▓▒░ %F{34}Installation successful.%f%b" || \
         print -P "%F{160}▓▒░ The clone has failed.%f%b"
 fi
@@ -27,7 +27,7 @@ zinit lucid wait light-mode for \
     atload"_zsh_autosuggest_start" \
         zsh-users/zsh-autosuggestions \
     atinit"typeset -gA FAST_HIGHLIGHT; FAST_HIGHLIGHT[git-cmsg-len]=73; zicompinit; zicdreplay" \
-        zdharma/fast-syntax-highlighting
+        z-shell/fast-syntax-highlighting
 
 # This plugin provides aliases for tmux and automatically start tmux
 if [ "$TERM_PROGRAM" != "vscode" ]; then
@@ -110,7 +110,7 @@ zinit light-mode lucid wait has"gh" for \
     as"completion" \
     atclone"gh completion -s zsh > _gh" \
     atpull"%atclone" \
-    zdharma/null
+    z-shell/null
 # Remote repository management made easy
 zinit ice from"gh-r" as"command" pick"*/ghq"
 zinit light x-motemen/ghq
@@ -136,7 +136,7 @@ zinit light-mode lucid wait has"kubectl" for \
     as"completion" \
     atclone"kubectl completion zsh > _kubectl" \
     atpull"%atclone" \
-    zdharma/null
+    z-shell/null
 # The eksctl command line utility provides the fastest and easiest way to create a new cluster with nodes for Amazon EKS
 zinit ice from"gh-r" as"command" pick"eksctl"
 zinit light weaveworks/eksctl
@@ -145,7 +145,7 @@ zinit light-mode lucid wait has"eksctl" for \
     as"completion" \
     atclone"eksctl completion zsh > _eksctl" \
     atpull"%atclone" \
-    zdharma/null
+    z-shell/null
 # Replace zsh's default completion selection menu with fzf!
 #zinit ice wait"1" lucid
 #zinit light Aloxaf/fzf-tab
