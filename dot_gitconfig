@@ -5,6 +5,7 @@
     ff = only
 
 [core]
+    abbrev = 8
     pager = delta
 
 [interactive]
