@@ -214,3 +214,10 @@ if command -v pipx 1>/dev/null 2>&1; then
     eval "$(register-python-argcomplete pipx)"
 fi
 #endregion pipx
+
+#region docker
+service docker status > /dev/null 2>&1
+if [ $? = 1 ]; then
+    sudo service docker start
+fi
+#endregion docker
