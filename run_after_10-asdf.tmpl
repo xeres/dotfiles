@@ -2,8 +2,6 @@
 
 set -e
 
-ASDF_DIR="$HOME/.zinit/plugins/asdf-vm---asdf"
-
 if [ ! -d $ASDF_DIR ]; then
-    git clone https://github.com/asdf-vm/asdf.git $ASDF_DIR --branch v0.8.1
+    git clone https://github.com/asdf-vm/asdf.git $ASDF_DIR --branch latest
 fi
