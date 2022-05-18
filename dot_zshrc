@@ -23,6 +23,33 @@ zicompinit
 #endregion zi-installer
 
 #region zi-plugins
+if [ "$TERM_PROGRAM" != "vscode" ]; then
+  zi wait lucid for \
+    atinit'export ZSH_TMUX_AUTOSTART=true; export ZSH_TMUX_UNICODE=true' \
+    atclone'curl -sOL https://github.com/ohmyzsh/ohmyzsh/raw/master/plugins/tmux/tmux.extra.conf' atpull'%atclone' \
+    atload'unalias ta tad ts tl tksv tkss' \
+      OMZP::tmux
+fi
+
+zi lucid wait light-mode for \
+  atinit'typeset -gA FAST_HIGHLIGHT; FAST_HIGHLIGHT[git-cmsg-len]=73; zicompinit; zicdreplay' \
+    z-shell/fast-syntax-highlighting \
+  blockf \
+    zsh-users/zsh-completions \
+  atload'!_zsh_autosuggest_start' \
+    zsh-users/zsh-autosuggestions
+
+zi ice depth'1' atload"[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh" nocd
+zi light romkatv/powerlevel10k
+
+zi ice atclone'dircolors -b LS_COLORS > clrs.zsh' \
+  atpull'%atclone' pick"clrs.zsh" nocompile'!' \
+  atload'zstyle ":completion:*" list-colors "${(s.:.)LS_COLORS}"'
+zi light trapd00r/LS_COLORS
+
+zi ice as'program' from'gh-r' pick'bin/exa' mv'completions/*.zsh -> _exa'
+zi light ogham/exa
+
 zi ice src'asdf.sh' \
   atinit'export ASDF_DATA_DIR="$HOME/.local/share/asdf"'
 zi light asdf-vm/asdf
@@ -51,7 +78,11 @@ zi light develerik/git-credential-1password
 #endregion zi-plugins
 
 #region alias
-alias ls='ls --color=auto --time-style long-iso'
+if (( $+commands[exa] )); then
+  alias ls='exa --header --time-style long-iso'
+else
+  alias ls='ls --color=auto --file-type --time-style long-iso'
+fi
 alias grep='grep --color=auto'
 alias diff='diff --color=auto'
 #endregion alias
