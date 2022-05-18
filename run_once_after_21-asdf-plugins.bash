@@ -2,9 +2,14 @@
 
 set -e
 
-source ${ASDF_DIR:-${ZI_HOME:-$HOME/.zi}/plugins/asdf}/asdf.sh
+export ASDF_DIR="${ZI_HOME:-$HOME/.zi}/plugins/asdf"
+export ASDF_DATA_DIR="${XDG_DATA_DIR:-$HOME/.local/share}/asdf"
 
-export ASDF_DATA_DIR=${XDG_DATA_DIR:-$HOME/.local/share}/asdf
+if [ ! -d "$ASDF_DIR" ]; then
+    git clone https://github.com/asdf-vm/asdf $ASDF_DIR
+fi
+
+source "${ASDF_DIR:-${ZI_HOME:-$HOME/.zi}/plugins/asdf}/asdf.sh"
 
 function install_asdf_global_plugin() {
   asdf plugin add "$1" || true
