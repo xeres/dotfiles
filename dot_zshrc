@@ -75,6 +75,36 @@ zi id-as='asdf-1password-cli' nocompile \
 
 zi ice as'program' from'gh-r' pick'git-credential-1password'
 zi light develerik/git-credential-1password
+
+zi ice as'program' from'gh-r' pick'*/ghq' \
+  atinit'export GHQ_ROOT="$HOME/repos"'
+zi light x-motemen/ghq
+
+zi ice wait lucid as'program' from'gh-r' pick'fzf'
+zi light junegunn/fzf
+
+# FIXME: completion does not work properly
+zi ice id-as='junegunn/fzf-extras' wait lucid as'program' pick'bin/fzf-tmux' src='shell/key-bindings.zsh' mv'shell/completion.zsh > _fzf'
+zi light junegunn/fzf
+# "^R" fzf-history-widget
+# "^T" fzf-file-widget
+# "^[c" fzf-cd-widget
+
+autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
+add-zsh-hook chpwd chpwd_recent_dirs
+mkdir -p "${XDG_CACHE_HOME:-$HOME/.cache}"
+zstyle ':chpwd:*' recent-dirs-file "${XDG_CACHE_HOME:-$HOME/.cache}/chpwd-recent-dirs"
+
+zi light mollifier/anyframe
+zstyle ":anyframe:selector:" use fzf-tmux
+
+bindkey '^@' anyframe-widget-cdr
+bindkey '^x^a' anyframe-widget-git-add
+bindkey '^x^b' anyframe-widget-checkout-git-branch
+bindkey '^x^f' anyframe-widget-insert-filename
+bindkey '^x^g' anyframe-widget-cd-ghq-repository
+bindkey '^x^k' anyframe-widget-kill
+bindkey '^x^r' anyframe-widget-put-history
 #endregion zi-plugins
 
 #region alias
