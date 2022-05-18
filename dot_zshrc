@@ -24,10 +24,9 @@ zicompinit
 
 #region zi-plugins
 # Extendable version manager with support for Ruby, Node.js, Elixir, Erlang & more
-zi id-as"asdf" \
-  atinit'export ASDF_DATA_DIR="$HOME/.local/share/asdf"' \
-  src'asdf.sh' \
-  for @asdf-vm/asdf
+zi ice src'asdf.sh' \
+  atinit'export ASDF_DATA_DIR="$HOME/.local/share/asdf"'
+zi light asdf-vm/asdf
 #endregion zi-plugins
 
 #region alias
