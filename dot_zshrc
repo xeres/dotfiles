@@ -50,6 +50,9 @@ zi light trapd00r/LS_COLORS
 zi ice as'program' from'gh-r' pick'bin/exa' mv'completions/*.zsh -> _exa'
 zi light ogham/exa
 
+zi ice as'program' from'gh-r' mv'**/delta -> delta' pick'delta'
+zi light dandavison/delta
+
 zi ice src'asdf.sh' \
   atinit'export ASDF_DATA_DIR="$HOME/.local/share/asdf"'
 zi light asdf-vm/asdf
