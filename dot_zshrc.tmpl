@@ -6,7 +6,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 #endregion powerlevel10k-instant-prompt
 
-#region zinit-installer
+#region zi-installer
 if [[ ! -f $HOME/.zi/bin/zi.zsh ]]; then
   print -P "%F{33}▓▒░ %F{160}Installing (%F{33}z-shell/zi%F{160})…%f"
   command mkdir -p "$HOME/.zi" && command chmod g-rwX "$HOME/.zi"
@@ -24,10 +24,10 @@ zicompinit
 zi light-mode for \
   z-shell/z-a-meta-plugins \
   @annexes
-#endregion zinit-installer
+#endregion zi-installer
 
-#region zinit-plugins
-zinit lucid wait light-mode for \
+#region zi-plugins
+zi lucid wait light-mode for \
     atload"_zsh_autosuggest_start" \
         zsh-users/zsh-autosuggestions \
     atinit"typeset -gA FAST_HIGHLIGHT; FAST_HIGHLIGHT[git-cmsg-len]=73; zicompinit; zicdreplay" \
@@ -35,138 +35,138 @@ zinit lucid wait light-mode for \
 
 # This plugin provides aliases for tmux and automatically start tmux
 if [ "$TERM_PROGRAM" != "vscode" ]; then
-    zinit wait lucid for \
+    zi wait lucid for \
         atclone"curl -sOL https://github.com/ohmyzsh/ohmyzsh/raw/master/plugins/tmux/tmux.extra.conf" \
         atload'unalias ta tad ts tl tksv tkss' \
             OMZP::tmux
 fi
 
 # A collection of LS_COLORS definitions
-zinit ice atclone"dircolors -b LS_COLORS > clrs.zsh" \
+zi ice atclone"dircolors -b LS_COLORS > clrs.zsh" \
     atpull'%atclone' pick"clrs.zsh" nocompile'!' \
     atload'zstyle ":completion:*" list-colors “${(s.:.)LS_COLORS}”'
-zinit light trapd00r/LS_COLORS
+zi light trapd00r/LS_COLORS
 
-zinit ice depth=1; zinit light romkatv/powerlevel10k
+zi ice depth=1; zi light romkatv/powerlevel10k
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # Extendable version manager with support for Ruby, Node.js, Elixir, Erlang & more
-zinit ice as"program" ver"v0.8.1" src"asdf.sh"
-zinit light asdf-vm/asdf
+zi ice as"program" ver"v0.8.1" src"asdf.sh"
+zi light asdf-vm/asdf
 ## alternatives for GNU coreutils
 # /bin/cat: A cat(1) clone with wings.
-zinit ice as"command" from"gh-r" mv"bat*/bat -> bat" pick"bat"
-zinit light sharkdp/bat
+zi ice as"command" from"gh-r" mv"bat*/bat -> bat" pick"bat"
+zi light sharkdp/bat
 # /bin/ls: A modern replacement for 'ls'.
-zinit ice as"command" from"gh-r" pick"bin/exa" mv"completions/*.zsh -> _exa"
-zinit light ogham/exa
+zi ice as"command" from"gh-r" pick"bin/exa" mv"completions/*.zsh -> _exa"
+zi light ogham/exa
 # /usr/bin/du: A more intuitive version of du in rust
-zinit ice as"command" from"gh-r" mv"dust*unknown-linux-gnu/dust -> dust" pick"dust"
-zinit light bootandy/dust
+zi ice as"command" from"gh-r" mv"dust*unknown-linux-gnu/dust -> dust" pick"dust"
+zi light bootandy/dust
 ## alternatives for GNU findutils
 # /usr/bin/find: A simple, fast and user-friendly alternative to 'find'
-zinit ice as"command" from"gh-r" mv"fd* -> fd" bpick"*x86_64-unknown-linux-gnu*" pick"fd/fd"
-zinit light sharkdp/fd
+zi ice as"command" from"gh-r" mv"fd* -> fd" bpick"*x86_64-unknown-linux-gnu*" pick"fd/fd"
+zi light sharkdp/fd
 ## alternative for GNU diffutils
 # A viewer for git and diff output
-zinit ice as"command" from"gh-r" mv"*x86_64-unknown-linux-gnu/delta -> delta" bpick"*x86_64-unknown-linux-gnu*" pick"delta"
-zinit light dandavison/delta
+zi ice as"command" from"gh-r" mv"*x86_64-unknown-linux-gnu/delta -> delta" bpick"*x86_64-unknown-linux-gnu*" pick"delta"
+zi light dandavison/delta
 ## alternative for grep
 # /bin/grep: ripgrep recursively searches directories for a regex pattern while respecting your gitignore
-zinit ice as"command" from"gh-r" mv"ripgrep* -> ripgrep" pick"ripgrep/rg"
-zinit light BurntSushi/ripgrep
+zi ice as"command" from"gh-r" mv"ripgrep* -> ripgrep" pick"ripgrep/rg"
+zi light BurntSushi/ripgrep
 ## alternative for sed
 # /bin/sed: Intuitive find & replace CLI (sed alternative)
-zinit ice as"command" from"gh-r" mv"sd* -> sd" pick"sd"
-zinit light chmln/sd
+zi ice as"command" from"gh-r" mv"sd* -> sd" pick"sd"
+zi light chmln/sd
 ## alternative for procps
 # /bin/ps: A modern replacement for ps written in Rust
-zinit ice as"command" from"gh-r" bpick"*lnx*"
-zinit light dalance/procs
+zi ice as"command" from"gh-r" bpick"*lnx*"
+zi light dalance/procs
 ## benchmarktools
 # A command-line benchmarking tool
-zinit ice as"command" from"gh-r" mv"hyperfine*/hyperfine -> hyperfine" pick"sharkdp/hyperfine"
-zinit light sharkdp/hyperfine
+zi ice as"command" from"gh-r" mv"hyperfine*/hyperfine -> hyperfine" pick"sharkdp/hyperfine"
+zi light sharkdp/hyperfine
 # It's like curl -v, with graphs and colors
-zinit ice as"command" cp"httpstat.sh -> httpstat" pick"httpstat"
-zinit light b4b4r07/httpstat
+zi ice as"command" cp"httpstat.sh -> httpstat" pick"httpstat"
+zi light b4b4r07/httpstat
 # Simple command-line snippet manager, written in Go.
-zinit ice as"command" from"gh-r" bpick"pet_*_linux_amd64.tar.gz" pick"pet"
-zinit light knqyf263/pet
+zi ice as"command" from"gh-r" bpick"pet_*_linux_amd64.tar.gz" pick"pet"
+zi light knqyf263/pet
 # Remote repository management made easy
-zinit ice from"gh-r" as"command" pick"*/ghq"
-zinit light x-motemen/ghq
+zi ice from"gh-r" as"command" pick"*/ghq"
+zi light x-motemen/ghq
 ## utilities
 # A git credential helper for 1Password
-zinit ice as"command" from"gh-r" pick"git-credential-1password"
-zinit light develerik/git-credential-1password
+zi ice as"command" from"gh-r" pick"git-credential-1password"
+zi light develerik/git-credential-1password
 # A very fast implementation of tldr in Rust.
-zinit ice as"command" from"gh-r" mv"tldr* -> tldr" pick"tldr"
-zinit light dbrgn/tealdeer
+zi ice as"command" from"gh-r" mv"tldr* -> tldr" pick"tldr"
+zi light dbrgn/tealdeer
 # A command-line tool and library for generating regular expressions from user-provided test cases
-zinit ice as"command" from"gh-r" pick"pemistahl/grex"
-zinit light pemistahl/grex
+zi ice as"command" from"gh-r" pick"pemistahl/grex"
+zi light pemistahl/grex
 # GitHub’s official command line tool
-zinit ice as"command" from"gh-r" pick"usr/bin/gh"
-zinit light "cli/cli"
-zinit light-mode lucid wait has"gh" for \
+zi ice as"command" from"gh-r" pick"usr/bin/gh"
+zi light "cli/cli"
+zi light-mode lucid wait has"gh" for \
     id-as"gh-completion" \
     as"completion" \
     atclone"gh completion -s zsh > _gh" \
     atpull"%atclone" \
     z-shell/null
 # Remote repository management made easy
-zinit ice from"gh-r" as"command" pick"*/ghq"
-zinit light x-motemen/ghq
+zi ice from"gh-r" as"command" pick"*/ghq"
+zi light x-motemen/ghq
 ## completions
 # A command-line fuzzy finder
-zinit ice from"gh-r" as"command"
-zinit light junegunn/fzf
-zinit ice id-as"junegunn/fzf-tmux" as"command" pick"bin/fzf-tmux"
-zinit light junegunn/fzf
-zinit ice id-as"junegunn/fzf-completions" mv"shell/completion.zsh -> _fzf" src"shell/key-bindings.zsh" pick"/dev/null"
-zinit light junegunn/fzf
+zi ice from"gh-r" as"command"
+zi light junegunn/fzf
+zi ice id-as"junegunn/fzf-tmux" as"command" pick"bin/fzf-tmux"
+zi light junegunn/fzf
+zi ice id-as"junegunn/fzf-completions" mv"shell/completion.zsh -> _fzf" src"shell/key-bindings.zsh" pick"/dev/null"
+zi light junegunn/fzf
 # Guard offers a policy-as-code domain-specific language (DSL) to write rules and validate JSON- and YAML-formatted data such as CloudFormation Templates, K8s configurations, and Terraform JSON plans/configurations against those rules.
-zinit ice as"command" from"gh-r" bpick"*ubuntu*" mv"cfn-guard-v2-ubuntu-latest/cfn-guard -> cfn-guard" pick"cfn-guard"
-zinit load aws-cloudformation/cloudformation-guard
+zi ice as"command" from"gh-r" bpick"*ubuntu*" mv"cfn-guard-v2-ubuntu-latest/cfn-guard -> cfn-guard" pick"cfn-guard"
+zi load aws-cloudformation/cloudformation-guard
 # The AWS Amplify CLI is a toolchain for simplifying serverless web and mobile development.
-zinit ice as"command" from"gh-r" bpick"*linux*" mv"amplify* -> amplify" pick"amplify" ver="tag/$(curl -sL https://api.github.com/repos/aws-amplify/amplify-cli/releases/latest | jq -r .tag_name)"
-zinit light aws-amplify/amplify-cli
+zi ice as"command" from"gh-r" bpick"*linux*" mv"amplify* -> amplify" pick"amplify" ver="tag/$(curl -sL https://api.github.com/repos/aws-amplify/amplify-cli/releases/latest | jq -r .tag_name)"
+zi light aws-amplify/amplify-cli
 # Kubernetes uses a command line utility called kubectl for communicating with the cluster API server
-zinit ice id-as="kubectl" as"command"
-zinit snippet https://amazon-eks.s3.us-west-2.amazonaws.com/1.20.4/2021-04-12/bin/linux/amd64/kubectl
-zinit light-mode lucid wait has"kubectl" for \
+zi ice id-as="kubectl" as"command"
+zi snippet https://amazon-eks.s3.us-west-2.amazonaws.com/1.20.4/2021-04-12/bin/linux/amd64/kubectl
+zi light-mode lucid wait has"kubectl" for \
     id-as"kubectl-completion" \
     as"completion" \
     atclone"kubectl completion zsh > _kubectl" \
     atpull"%atclone" \
     z-shell/null
 # The eksctl command line utility provides the fastest and easiest way to create a new cluster with nodes for Amazon EKS
-zinit ice from"gh-r" as"command" pick"eksctl"
-zinit light weaveworks/eksctl
-zinit light-mode lucid wait has"eksctl" for \
+zi ice from"gh-r" as"command" pick"eksctl"
+zi light weaveworks/eksctl
+zi light-mode lucid wait has"eksctl" for \
     id-as"eksctl-completion" \
     as"completion" \
     atclone"eksctl completion zsh > _eksctl" \
     atpull"%atclone" \
     z-shell/null
 # Replace zsh's default completion selection menu with fzf!
-#zinit ice wait"1" lucid
-#zinit light Aloxaf/fzf-tab
+#zi ice wait"1" lucid
+#zi light Aloxaf/fzf-tab
 # enable cdr
 autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
 add-zsh-hook chpwd chpwd_recent_dirs
 mkdir -p "${XDG_CACHE_HOME:-$HOME/.cache}"
 zstyle ':chpwd:*' recent-dirs-file "${XDG_CACHE_HOME:-$HOME/.cache}/chpwd-recent-dirs"
 # peco/percol/fzf wrapper plugin for zsh
-zinit light mollifier/anyframe
+zi light mollifier/anyframe
 bindkey '^x^b' anyframe-widget-cdr
 bindkey '^x^f' anyframe-widget-insert-filename
 bindkey '^x^g' anyframe-widget-cd-ghq-repository
 bindkey '^x^k' anyframe-widget-kill
 bindkey '^x^r' anyframe-widget-put-history
 zstyle ":anyframe:selector:" use fzf-tmux
-#endregion zinit-plugins
+#endregion zi-plugins
 
 #region alias
 alias ls='exa --icons --header --time-style long-iso'
