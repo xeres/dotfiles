@@ -2,7 +2,7 @@
 
 #region powerlevel10k-instant-prompt
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-    source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 #endregion powerlevel10k-instant-prompt
 
@@ -68,3 +68,9 @@ setopt SHARE_HISTORY              # 複数の zsh 間で HISTFILE を共有す�
 #region zle
 setopt NO_BEEP                    # ビープ無効
 #endregion zle
+
+#region direnv
+if (( $+commands[direnv] )); then
+  eval "$(direnv hook zsh)"
+fi
+#endregion
