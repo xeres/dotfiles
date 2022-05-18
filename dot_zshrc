@@ -23,10 +23,20 @@ zicompinit
 #endregion zi-installer
 
 #region zi-plugins
-# Extendable version manager with support for Ruby, Node.js, Elixir, Erlang & more
 zi ice src'asdf.sh' \
   atinit'export ASDF_DATA_DIR="$HOME/.local/share/asdf"'
 zi light asdf-vm/asdf
+
+zi id-as='asdf-direnv' nocompile \
+  atclone'
+    asdf plugin add direnv;
+    asdf install direnv latest;
+    asdf global direnv latest;
+    asdf reshim direnv latest;
+    direnv hook zsh > direnv.zsh;
+    direnv allow "$HOME"' atpull'%atclone' \
+  src'direnv.zsh' \
+  for @z-shell/null
 #endregion zi-plugins
 
 #region alias
@@ -67,9 +77,3 @@ setopt SHARE_HISTORY              # 複数の zsh 間で HISTFILE を共有す�
 #region zle
 setopt NO_BEEP                    # ビープ無効
 #endregion zle
-
-#region direnv
-if (( $+commands[direnv] )); then
-  eval "$(direnv hook zsh)"
-fi
-#endregion
