@@ -8,12 +8,3 @@ export LESSHISTFILE=-
 export HISTSIZE=10000
 export SAVEHIST=20000
 export HISTFILE=~/.zsh_history
-
-export ZSH_TMUX_AUTOSTART=true
-export ZSH_TMUX_UNICODE=true
-
-export ASDF_DATA_DIR="$HOME/.local/share/asdf"
-
-export GHQ_ROOT=~/repos
-
-export PIPX_HOME="$HOME/.local/share/pipx"
