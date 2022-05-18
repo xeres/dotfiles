@@ -71,9 +71,9 @@ zi id-as='asdf-direnv' nocompile \
 zi id-as='asdf-1password-cli' nocompile \
   atclone'
     asdf plugin add 1password-cli;
-    asdf install 1password-cli 1.12.4;
-    asdf global 1password-cli 1.12.4;
-    asdf reshim 1password-cli 1.12.4' atpull'%atclone' \
+    asdf install 1password-cli latest;
+    asdf global 1password-cli latest;
+    asdf reshim 1password-cli latest' atpull'%atclone' \
   for @z-shell/null
 
 zi ice as'program' from'gh-r' pick'git-credential-1password'
