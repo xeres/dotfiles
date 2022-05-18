@@ -2,7 +2,7 @@
 
 set -e
 
-export ASDF_DIR="${ZI_HOME:-$HOME/.zi}/plugins/asdf"
+export ASDF_DIR="${ZI_HOME:-$HOME/.zi}/plugins/asdf-vm---asdf"
 export ASDF_DATA_DIR="${XDG_DATA_DIR:-$HOME/.local/share}/asdf"
 
 if [ ! -d "$ASDF_DIR" ]; then
