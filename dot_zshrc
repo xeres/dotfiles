@@ -79,6 +79,14 @@ zi id-as='asdf-1password-cli' nocompile \
 zi ice as'program' from'gh-r' pick'git-credential-1password'
 zi light develerik/git-credential-1password
 
+zi id-as='asdf-awscli' nocompile \
+  atclone'
+    asdf plugin add awscli;
+    asdf install awscli latest;
+    asdf global awscli latest;
+    asdf reshim awscli latest' atpull'%atclone' \
+  for @z-shell/null
+
 zi ice as'program' from'gh-r' pick'*/ghq' \
   atinit'export GHQ_ROOT="$HOME/repos"'
 zi light x-motemen/ghq
