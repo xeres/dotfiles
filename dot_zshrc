@@ -57,34 +57,30 @@ zi ice src'asdf.sh' \
   atinit'export ASDF_DATA_DIR="$HOME/.local/share/asdf"'
 zi light asdf-vm/asdf
 
+function install_asdf_plugin {
+  asdf plugin add "$1"
+  asdf install "$1" "$2"
+  asdf global "$1" "$2"
+  asdf reshim "$1" "$2"
+}
+
 zi id-as='asdf-direnv' nocompile \
   atclone'
-    asdf plugin add direnv;
-    asdf install direnv latest;
-    asdf global direnv latest;
-    asdf reshim direnv latest;
+    install_asdf_plugin direnv latest;
     direnv hook zsh > direnv.zsh;
     direnv allow "$HOME"' atpull'%atclone' \
   src'direnv.zsh' \
   for @z-shell/null
 
 zi id-as='asdf-1password-cli' nocompile \
-  atclone'
-    asdf plugin add 1password-cli;
-    asdf install 1password-cli latest;
-    asdf global 1password-cli latest;
-    asdf reshim 1password-cli latest' atpull'%atclone' \
+  atclone'install_asdf_plugin 1password-cli latest' atpull'%atclone' \
   for @z-shell/null
 
 zi ice as'program' from'gh-r' pick'git-credential-1password'
 zi light develerik/git-credential-1password
 
 zi id-as='asdf-awscli' nocompile \
-  atclone'
-    asdf plugin add awscli;
-    asdf install awscli latest;
-    asdf global awscli latest;
-    asdf reshim awscli latest' atpull'%atclone' \
+  atclone'install_asdf_plugin awscli latest' atpull'%atclone' \
   for @z-shell/null
 
 zi ice as'program' from'gh-r' pick'*/ghq' \
