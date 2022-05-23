@@ -97,6 +97,10 @@ zi id-as='aws-sam-cli' nocompile \
   atclone'pipx install aws-sam-cli' atpull'%atclone' \
   for @z-shell/null
 
+zi id-as='git-remote-codecommit' nocompile \
+  atclone'pipx install git-remote-codecommit' atpull'%atclone' \
+  for @z-shell/null
+
 zi ice as'program' from'gh-r' pick'*/ghq' \
   atinit'export GHQ_ROOT="$HOME/repos"'
 zi light x-motemen/ghq
