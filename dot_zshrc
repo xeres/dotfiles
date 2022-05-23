@@ -83,6 +83,20 @@ zi id-as='asdf-awscli' nocompile \
   atclone'install_asdf_plugin awscli latest' atpull'%atclone' \
   for @z-shell/null
 
+zi id-as='asdf-python' nocompile \
+  atclone'install_asdf_plugin python 3.9.13' atpull'%atclone' \
+  for @z-shell/null
+
+zi id-as='pipx' nocompile \
+  atclone'
+    python -m pip install --user pipx;
+    pipx ensurepath' atpull'%atclone' \
+  for @z-shell/null
+
+zi id-as='aws-sam-cli' nocompile \
+  atclone'pipx install aws-sam-cli' atpull'%atclone' \
+  for @z-shell/null
+
 zi ice as'program' from'gh-r' pick'*/ghq' \
   atinit'export GHQ_ROOT="$HOME/repos"'
 zi light x-motemen/ghq
