@@ -174,3 +174,11 @@ setopt SHARE_HISTORY              # 複数の zsh 間で HISTFILE を共有す�
 #region zle
 setopt NO_BEEP                    # ビープ無効
 #endregion zle
+
+#region docker
+if (( $+commands[docker] )); then
+  if [ -f /var/run/docker.sock ]; then
+    sudo service docker start
+  fi
+fi
+#endregion docker
