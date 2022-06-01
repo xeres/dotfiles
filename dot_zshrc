@@ -110,6 +110,9 @@ zi ice as'program' from'gh-r' pick'*/ghq' \
   atinit'export GHQ_ROOT="$HOME/repos"'
 zi light x-motemen/ghq
 
+zi ice as'program' from'gh-r' mv'commitizen-go -> git-cz' pick'git-cz'
+zi light xeres/commitizen-go
+
 zi ice wait lucid as'program' from'gh-r' pick'fzf'
 zi light junegunn/fzf
 
