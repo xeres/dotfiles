@@ -80,6 +80,11 @@ zi ice as'program' from'gh-r' pick'git-credential-1password'
 zi light develerik/git-credential-1password
 
 zi id-as='asdf-awscli' nocompile \
+  atinit'
+    autoload bashcompinit
+    bashcompinit
+    complete -C "$ASDF_DATA_DIR/shims/aws_completer" aws
+  ' \
   atclone'install_asdf_plugin awscli latest' atpull'%atclone' \
   for @z-shell/null
 
