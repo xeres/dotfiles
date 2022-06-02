@@ -29,3 +29,6 @@
 [credential "https://git-codecommit.*.amazonaws.com"]
     helper = !aws codecommit credential-helper $@
     UseHttpPath = true
+
+[alias]
+    ignore = !curl -L -s https://www.gitignore.io/api/$@
