@@ -59,6 +59,9 @@ zi light asdf-vm/asdf
 
 function install_asdf_plugin {
   asdf plugin add "$1"
+  if [ "$2" = "nodejs" ]; then
+    asdf nodejs update nodebuild
+  fi
   asdf install "$1" "$2"
   asdf global "$1" "$2"
   asdf reshim "$1" "$2"
@@ -104,6 +107,10 @@ zi id-as='aws-sam-cli' nocompile \
 
 zi id-as='git-remote-codecommit' nocompile \
   atclone'pipx install git-remote-codecommit' atpull'%atclone' \
+  for @z-shell/null
+
+zi id-as='asdf-nodejs' nocompile \
+  atclone'install_asdf_plugin nodejs lts-gallium' atpull'%atclone' \
   for @z-shell/null
 
 zi ice as'program' from'gh-r' pick'*/ghq' \
