@@ -109,6 +109,9 @@ zi id-as='git-remote-codecommit' nocompile \
   atclone'pipx install git-remote-codecommit' atpull'%atclone' \
   for @z-shell/null
 
+zi ice as'program' from'gh-r' bpick='*-ubuntu-latest.tar.gz' mv'**/cfn-guard -> cfn-guard' pick'cfn-guard'
+zi light aws-cloudformation/cloudformation-guard
+
 zi id-as='asdf-nodejs' nocompile \
   atclone'install_asdf_plugin nodejs lts-gallium' atpull'%atclone' \
   for @z-shell/null
