@@ -110,7 +110,9 @@ zi id-as='git-remote-codecommit' nocompile \
   for @z-shell/null
 
 zi id-as='asdf-eksctl' nocompile \
-  atclone'install_asdf_plugin eksctl latest' atpull'%atclone' \
+  atclone'
+    install_asdf_plugin eksctl latest;
+    eksctl completion zsh > ~/.zi/completions/_eksctl' atpull'%atclone' \
   for @z-shell/null
 
 zi id-as='asdf-nodejs' nocompile \
