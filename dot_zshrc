@@ -116,7 +116,7 @@ zi id-as='asdf-eksctl' nocompile \
   for @z-shell/null
 
 zi id-as='asdf-nodejs' nocompile \
-  atclone'install_asdf_plugin nodejs lts-gallium' atpull'%atclone' \
+  atclone'install_asdf_plugin nodejs lts-hydrogen' atpull'%atclone' \
   for @z-shell/null
 
 zi ice as'program' from'gh-r' pick'*/ghq' \
