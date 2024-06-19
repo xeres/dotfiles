@@ -1,5 +1,5 @@
 # syntax = docker/dockerfile:1.3-labs
-FROM public.ecr.aws/ubuntu/ubuntu:20.04_stable
+FROM public.ecr.aws/ubuntu/ubuntu:24.04_stable
 ENV DEBIAN_FRONTEND=noninteractive
 ENV TZ=Asia/Tokyo
 RUN <<__EOF__
