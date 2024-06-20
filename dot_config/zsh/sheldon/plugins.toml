@@ -41,5 +41,9 @@ if (($+commands[asdf])); then
 fi
 '''
 
+[plugins.zsh-completions]
+github = "zsh-users/zsh-completions"
+apply = ["defer"]
+
 [plugins.compinit]
 inline = 'autoload -Uz compinit && zsh-defer compinit'
