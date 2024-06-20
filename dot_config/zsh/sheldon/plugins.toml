@@ -1,0 +1,45 @@
+shell = 'zsh'
+
+[templates]
+defer = '{{ hooks | get: "pre" | nl }}{% for file in files %}zsh-defer source "{{ file }}"\n{% endfor %}{{ hooks | get: "post" | nl }}'
+
+[plugins.powerlevel10k-instant]
+inline = '''
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+    source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+'''
+
+[plugins.powerlevel10k]
+github = 'romkatv/powerlevel10k'
+hooks.post = '''
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+'''
+
+[plugins.zsh-defer]
+github = 'romkatv/zsh-defer'
+
+[plugins.asdf]
+github = 'asdf-vm/asdf'
+hooks.pre = '''
+export ASDF_DATA_DIR="$HOME/.local/share/asdf"
+'''
+# TODO: asdf plugin update --all
+
+[plugins.asdf-completion]
+github = 'asdf-vm/asdf'
+apply = ['fpath']
+dir = 'completions'
+
+[plugins.direnv]
+inline = '''
+if (($+commands[asdf])); then
+    asdf plugin add direnv
+    asdf install direnv latest
+    asdf global direnv latest
+    (($+commands[direnv])) && eval "$(direnv hook zsh)"
+fi
+'''
+
+[plugins.compinit]
+inline = 'autoload -Uz compinit && zsh-defer compinit'
