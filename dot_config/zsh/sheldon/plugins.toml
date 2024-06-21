@@ -1,7 +1,15 @@
 shell = 'zsh'
 
+apply = ['defer']
+
 [templates]
-defer = '{{ hooks?.pre | nl }}{% for file in files %}zsh-defer source "{{ file }}"\n{% endfor %}{{ hooks?.post | nl }}'
+defer = """
+{{ hooks?.pre | nl }}{% for file in files %}source \"{{ file }}\"\n{% endfor %}{{ hooks?.post | nl }}
+"""
+
+[plugins.zsh-defer]
+github = 'romkatv/zsh-defer'
+apply = ['source']
 
 [plugins.powerlevel10k-instant]
 inline = '''
@@ -15,35 +23,113 @@ github = 'romkatv/powerlevel10k'
 hooks.post = '''
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 '''
-
-[plugins.zsh-defer]
-github = 'romkatv/zsh-defer'
+apply = ['source']
 
 [plugins.asdf]
 github = 'asdf-vm/asdf'
 hooks.pre = '''
 export ASDF_DATA_DIR="$HOME/.local/share/asdf"
 '''
-# TODO: asdf plugin update --all
+
+[plugins.tmux]
+github = 'ohmyzsh/ohmyzsh'
+use = ['plugins/tmux/*.plugin.zsh']
+hooks.pre = '''
+export ZSH_TMUX_AUTOSTART=true
+'''
+apply = ['defer']
 
 [plugins.asdf-completion]
 github = 'asdf-vm/asdf'
-apply = ['fpath']
 dir = 'completions'
+apply = ['fpath']
 
 [plugins.direnv]
 inline = '''
 if (($+commands[asdf])); then
-    asdf plugin add direnv
-    asdf install direnv latest
-    asdf global direnv latest
-    (($+commands[direnv])) && eval "$(direnv hook zsh)"
+    if (( ! $+commands[{{ name }}])); then
+        asdf plugin add {{ name }}
+        asdf install {{ name }} latest
+        asdf global {{ name }} latest
+    fi
+fi
+(($+commands[direnv])) && (($+functions[_direnv_hook])) || eval "$(direnv hook zsh)"
+'''
+
+[plugins.eza]
+inline = '''
+if (($+commands[asdf])); then
+    if (( ! $+commands[{{ name }}])); then
+        asdf plugin add {{ name }}
+        asdf install {{ name }} latest
+        asdf global {{ name }} latest
+    fi
+fi
+'''
+
+[plugins.eza-completion]
+github = 'eza-community/eza'
+dir = 'completions/zsh'
+apply = ['fpath']
+
+[plugins.delta]
+inline = '''
+if (($+commands[asdf])); then
+    if (( ! $+commands[{{ name }}])); then
+        asdf plugin add {{ name }}
+        asdf install {{ name }} latest
+        asdf global {{ name }} latest
+    fi
+fi
+(($+commands[delta])) && (($+functions[_delta])) || eval "$(delta --generate-completion=zsh)"
+'''
+
+[plugins.nodejs]
+inline = '''
+if (($+commands[asdf])); then
+    if (( ! $+commands[node])); then
+        asdf plugin add {{ name }}
+        asdf nodejs update-nodebuild
+        asdf install nodejs $(asdf nodejs resolve lts --latest-available)
+        asdf global nodejs $(asdf nodejs resolve lts --latest-available)
+    fi
+fi
+'''
+
+[plugins.python]
+inline = '''
+if (($+commands[asdf])); then
+    if (( ! $+commands[{{ name }}])); then
+        asdf plugin add {{ name }}
+        lambda_runtime_latest=$(asdf list all python | grep ^3.12 | sort --version-sort | tail -1)
+        asdf install {{ name }} $lambda_runtime_latest
+        asdf global {{ name }} $lambda_runtime_latest
+        asdf reshim {{ name }} $lambda_runtime_latest
+    fi
+fi
+'''
+
+[plugins.pipx]
+inline = '''
+if (( ! $+commands[pipx])); then
+    python -m pip install --user pipx
+    pipx ensurepath
 fi
 '''
 
 [plugins.zsh-completions]
-github = "zsh-users/zsh-completions"
-apply = ["defer"]
+github = 'zsh-users/zsh-completions'
+apply = ['fpath']
+
+[plugins.zsh-autosuggestions]
+github = 'zsh-users/zsh-autosuggestions'
+apply = ['defer']
+
+[plugins.fast-syntax-highlighting]
+github = 'z-shell/fast-syntax-highlighting'
+apply = ['defer']
 
 [plugins.compinit]
-inline = 'autoload -Uz compinit && zsh-defer compinit'
+inline = '''
+autoload -Uz compinit && zsh-defer compinit
+'''
