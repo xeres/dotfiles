@@ -9,7 +9,6 @@ defer = """
 
 [plugins.zsh-defer]
 github = 'romkatv/zsh-defer'
-apply = ['source']
 
 [plugins.powerlevel10k-instant]
 inline = '''
@@ -23,7 +22,6 @@ github = 'romkatv/powerlevel10k'
 hooks.post = '''
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 '''
-apply = ['source']
 
 [plugins.asdf]
 github = 'asdf-vm/asdf'
@@ -37,7 +35,6 @@ use = ['plugins/tmux/*.plugin.zsh']
 hooks.pre = '''
 export ZSH_TMUX_AUTOSTART=true
 '''
-apply = ['defer']
 
 [plugins.asdf-completion]
 github = 'asdf-vm/asdf'
@@ -123,11 +120,9 @@ apply = ['fpath']
 
 [plugins.zsh-autosuggestions]
 github = 'zsh-users/zsh-autosuggestions'
-apply = ['defer']
 
 [plugins.fast-syntax-highlighting]
 github = 'z-shell/fast-syntax-highlighting'
-apply = ['defer']
 
 [plugins.compinit]
 inline = '''
