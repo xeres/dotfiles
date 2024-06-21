@@ -23,9 +23,6 @@
 [protocol "codecommit"]
     allow = always
 
-[credential "https://github.com"]
-    helper = 1password
-
 [credential "https://git-codecommit.*.amazonaws.com"]
     helper = !aws codecommit credential-helper $@
     UseHttpPath = true
