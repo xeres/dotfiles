@@ -121,6 +121,21 @@ zinit wait lucid \
         for light-mode https://github.com/dandavison/delta/raw/main/etc/completion/completion.zsh
 #endregion
 
+#region awscli
+zinit id-as='awscli' \
+    lucid nocompile \
+    atclone='
+        if (($+commands[asdf])); then
+            asdf plugin add awscli
+            asdf install awscli latest
+            asdf global awscli latest
+        else
+            print -P "%F{33}awscli%F{220}: %F{33}asdf%F{220} %F{220}command not found%f"
+        fi
+    ' atpull'%atclone' \
+        for @zdharma-continuum/null
+#endregion
+
 #region nodejs
 zinit id-as='nodejs' \
     lucid nocompile \
