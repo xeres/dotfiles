@@ -47,7 +47,7 @@ zinit lucid depth=1 \
 #endregion
 
 #region asdf-vm/asdf
-zinit wait lucid depth1 \
+zinit lucid depth=1 nocompile \
     atinit'export ASDF_DATA_DIR="$HOME/.local/share/asdf"' \
         for light-mode @asdf-vm/asdf
 zinit cdclear -q
@@ -70,11 +70,13 @@ zinit id-as='direnv' \
             asdf install direnv latest
             asdf global direnv latest
             direnv allow $HOME
+            direnv hook zsh > direnv.sh
+        else
+            print -P "%F{33}direnv%F{220}: %F{33}asdf%F{220} %F{220}command not found%f"
         fi
-        direnv hook zsh > direnv.sh
     ' atpull'%atclone' \
     src='direnv.sh' \
-    for @zdharma-continuum/null
+        for @zdharma-continuum/null
 #endregion
 
 #region eza
@@ -85,9 +87,11 @@ zinit id-as='eza' \
             asdf plugin add eza
             asdf install eza latest
             asdf global eza latest
+        else
+            print -P "%F{33}eza%F{220}: %F{33}asdf%F{220} %F{220}command not found%f"
         fi
     ' atpull'%atclone' \
-    for @zdharma-continuum/null
+        for @zdharma-continuum/null
 #endregion
 
 #region eza-completion
@@ -104,9 +108,11 @@ zinit id-as='delta' \
             asdf plugin add delta
             asdf install delta latest
             asdf global delta latest
+        else
+            print -P "%F{33}delta%F{220}: %F{33}asdf%F{220} %F{220}command not found%f"
         fi
     ' atpull'%atclone' \
-    for @zdharma-continuum/null
+        for @zdharma-continuum/null
 #endregion
 
 #region delta-completion
@@ -125,6 +131,8 @@ zinit id-as='nodejs' \
             local _nodejs_version=$(asdf nodejs resolve lts --latest-available)
             asdf install nodejs $_nodejs_version
             asdf global nodejs $_nodejs_version
+        else
+            print -P "%F{33}nodejs%F{220}: %F{33}asdf%F{220} %F{220}command not found%f"
         fi
     ' atpull'%atclone' \
     for @zdharma-continuum/null
@@ -140,6 +148,8 @@ zinit id-as='python' \
             asdf install python $_python_version
             asdf global python $_python_version
             asdf reshim python
+        else
+            print -P "%F{33}python%F{220}: %F{33}asdf%F{220} %F{220}command not found%f"
         fi
     ' atpull'%atclone' \
     for @zdharma-continuum/null
@@ -152,9 +162,11 @@ zinit id-as='pipx' \
         if (($+commands[python])); then
             python -m pip install --user pipx
             pipx ensurepath
+        else
+            print -P "%F{33}pipx%F{220}: %F{33}python%F{220} %F{220}command not found%f"
         fi
     ' atpull'%atclone' \
-    for @zdharma-continuum/null
+        for @zdharma-continuum/null
 #endregion
 
 #region zinit-compinit
