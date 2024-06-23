@@ -10,3 +10,6 @@ export SAVEHIST=20000
 export HISTFILE=~/.zsh_history
 
 export EDITOR="code -r"
+
+# for zdharma-continuum/zinit
+skip_global_compinit=1

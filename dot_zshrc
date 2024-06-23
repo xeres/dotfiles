@@ -1,0 +1,208 @@
+#region zinit
+if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
+    print -P "%F{33} %F{220}Installing %F{33}ZDHARMA-CONTINUUM%F{220} Initiative Plugin Manager (%F{33}zdharma-continuum/zinit%F{220})…%f"
+    command mkdir -p "$HOME/.local/share/zinit" && command chmod g-rwX "$HOME/.local/share/zinit"
+    command git clone https://github.com/zdharma-continuum/zinit "$HOME/.local/share/zinit/zinit.git" && \
+        print -P "%F{33} %F{34}Installation successful.%f%b" || \
+        print -P "%F{160} The clone has failed.%f%b"
+fi
+
+source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
+
+zinit light-mode for \
+    zdharma-continuum/zinit-annex-as-monitor \
+    zdharma-continuum/zinit-annex-bin-gem-node \
+    zdharma-continuum/zinit-annex-patch-dl \
+    zdharma-continuum/zinit-annex-rust
+#endregion
+
+#region zsh-users/zsh-completions
+zinit wait lucid \
+    atload"zicompinit; zicdreplay" \
+    blockf \
+        for @zsh-users/zsh-completions
+#endregion
+
+#region zsh-users/zsh-autosuggestions
+zinit lucid \
+    for light-mode @zsh-users/zsh-autosuggestions
+#endregion
+
+#region zdharma-continuum/fast-syntax-highlighting
+zinit lucid \
+    atinit'typeset -gA FAST_HIGHLIGHT; FAST_HIGHLIGHT[git-cmsg-len]=73' \
+        for light-mode @zdharma-continuum/fast-syntax-highlighting
+#endregion
+
+#region romkatv/powerlevel10k
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+    source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+zinit lucid depth=1 \
+    atinit'[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh' \
+        for light-mode @romkatv/powerlevel10k
+#endregion
+
+#region asdf-vm/asdf
+zinit wait lucid depth1 \
+    atinit'export ASDF_DATA_DIR="$HOME/.local/share/asdf"' \
+        for light-mode @asdf-vm/asdf
+zinit cdclear -q
+#endregion
+
+#region OMZP::tmux
+zinit wait lucid \
+    atinit'export ZSH_TMUX_AUTOSTART=true; export ZSH_TMUX_UNICODE=true' \
+    atclone'curl -sOL https://github.com/ohmyzsh/ohmyzsh/raw/master/plugins/tmux/tmux.extra.conf' atpull'%atclone' \
+    atload'unalias tksv tl tmuxconf; unfunction ta tad ts tkss' \
+        for light-mode @OMZP::tmux
+#endregion
+
+#region direnv
+zinit id-as='direnv' \
+    lucid nocompile \
+    atclone='
+        if (($+commands[asdf])); then
+            asdf plugin add direnv
+            asdf install direnv latest
+            asdf global direnv latest
+            direnv allow $HOME
+        fi
+        direnv hook zsh > direnv.sh
+    ' atpull'%atclone' \
+    src='direnv.sh' \
+    for @zdharma-continuum/null
+#endregion
+
+#region eza
+zinit id-as='eza' \
+    lucid nocompile \
+    atclone='
+        if (($+commands[asdf])); then
+            asdf plugin add eza
+            asdf install eza latest
+            asdf global eza latest
+        fi
+    ' atpull'%atclone' \
+    for @zdharma-continuum/null
+#endregion
+
+#region eza-completion
+zinit wait lucid \
+    as'completion' \
+        for light-mode https://github.com/eza-community/eza/raw/main/completions/zsh/_eza
+#endregion
+
+#region delta
+zinit id-as='delta' \
+    lucid nocompile \
+    atclone='
+        if (($+commands[asdf])); then
+            asdf plugin add delta
+            asdf install delta latest
+            asdf global delta latest
+        fi
+    ' atpull'%atclone' \
+    for @zdharma-continuum/null
+#endregion
+
+#region delta-completion
+zinit wait lucid \
+    as'completion' \
+        for light-mode https://github.com/dandavison/delta/raw/main/etc/completion/completion.zsh
+#endregion
+
+#region nodejs
+zinit id-as='nodejs' \
+    lucid nocompile \
+    atclone='
+        if (($+commands[asdf])); then
+            asdf plugin add nodejs
+            asdf nodejs update-nodebuild
+            local _nodejs_version=$(asdf nodejs resolve lts --latest-available)
+            asdf install nodejs $_nodejs_version
+            asdf global nodejs $_nodejs_version
+        fi
+    ' atpull'%atclone' \
+    for @zdharma-continuum/null
+#endregion
+
+#region python
+zinit id-as='python' \
+    lucid nocompile \
+    atclone='
+        if (($+commands[asdf])); then
+            asdf plugin add python
+            local _python_version=$(asdf list all python | grep ^3.12 | sort --version-sort | tail -1)
+            asdf install python $_python_version
+            asdf global python $_python_version
+            asdf reshim python
+        fi
+    ' atpull'%atclone' \
+    for @zdharma-continuum/null
+#endregion
+
+#region pipx
+zinit id-as='pipx' \
+    lucid nocompile \
+    atclone='
+        if (($+commands[python])); then
+            python -m pip install --user pipx
+            pipx ensurepath
+        fi
+    ' atpull'%atclone' \
+    for @zdharma-continuum/null
+#endregion
+
+#region zinit-compinit
+autoload -Uz compinit
+compinit
+zinit cdreplay -q
+zinit cdlist
+#endregion
+
+#region alias
+if (( $+commands[eza] )); then
+  alias ls='eza --header --time-style long-iso'
+else
+  alias ls='ls --color=auto --file-type --time-style long-iso'
+fi
+alias grep='grep --color=auto'
+alias diff='diff --color=auto'
+#endregion
+
+#region hook
+chpwd() ls
+#endregion
+
+#region changing_directories
+setopt AUTO_CD
+setopt AUTO_PUSHD
+setopt PUSHD_IGNORE_DUPS
+#endregion
+
+#region completion
+setopt NO_AUTO_MENU               # 補完時に TAB キーで選択肢を移動しない
+setopt LIST_PACKED                # 補完候補を表示する際に表示を詰める
+#endregion
+
+#region history
+setopt APPEND_HISTORY             # zsh が終了した際に HISTFILE を置き換えるのではなく追記する
+setopt EXTENDED_HISTORY           # HISTFILE にタイムスタンプを記録する
+setopt HIST_EXPIRE_DUPS_FIRST     # 重複する履歴を削除してから保存する
+setopt HIST_IGNORE_ALL_DUPS       # 履歴の内容と重複する行を履歴リストに追加しない
+setopt HIST_IGNORE_SPACE          # 先頭がスペースで始まる行を履歴に追加しない
+setopt HIST_LEX_WORDS             # クォートされた空白を正しく取り扱う
+setopt HIST_NO_STORE              # history コマンドを履歴に追加しない
+setopt HIST_REDUCE_BLANKS         # 履歴に追加する際に不要な空白を取り除く
+setopt HIST_SAVE_NO_DUPS          # HISTFILE に重複する履歴を保存しない
+setopt HIST_VERIFY                # 履歴補完した内容を即実行せず行エディタに読み込む
+setopt SHARE_HISTORY              # 複数の zsh 間で HISTFILE を共有する
+#endregion
+
+#region zle
+setopt NO_BEEP                    # ビープ無効
+#endregion
