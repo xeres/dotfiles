@@ -19,24 +19,24 @@ zinit light-mode for \
 #endregion
 
 #region zsh-users/zsh-completions
-zinit wait lucid \
+zinit wait lucid blockf depth=1 \
     atload='
         zicompinit; zicdreplay;
         autoload -Uz +X bashcompinit && bashcompinit
         complete -C $(which aws_completer) aws
-    ' blockf \
+    ' \
         for @zsh-users/zsh-completions
 #endregion
 
 #region zsh-users/zsh-autosuggestions
-zinit lucid \
-    for light-mode @zsh-users/zsh-autosuggestions
+zinit lucid light-mode \
+    for @zsh-users/zsh-autosuggestions
 #endregion
 
 #region zdharma-continuum/fast-syntax-highlighting
-zinit lucid \
+zinit lucid light-mode \
     atinit'typeset -gA FAST_HIGHLIGHT; FAST_HIGHLIGHT[git-cmsg-len]=73' \
-        for light-mode @zdharma-continuum/fast-syntax-highlighting
+        for @zdharma-continuum/fast-syntax-highlighting
 #endregion
 
 #region romkatv/powerlevel10k
@@ -50,140 +50,111 @@ zinit lucid depth=1 \
 #endregion
 
 #region asdf-vm/asdf
-zinit lucid depth=1 nocompile \
+zinit lucid nocompile light-mode depth=1 \
     atinit'export ASDF_DATA_DIR="$HOME/.local/share/asdf"' \
-        for light-mode @asdf-vm/asdf
+        for @asdf-vm/asdf
 zinit cdclear -q
 #endregion
 
 #region OMZP::tmux
-zinit wait lucid \
+zinit wait lucid light-mode \
     atinit'export ZSH_TMUX_AUTOSTART=true; export ZSH_TMUX_UNICODE=true' \
-    atclone'curl -sOL https://github.com/ohmyzsh/ohmyzsh/raw/master/plugins/tmux/tmux.extra.conf' atpull'%atclone' \
+    atclone'curl -sOL https://github.com/ohmyzsh/ohmyzsh/raw/master/plugins/tmux/tmux.extra.conf' atpull='%atclone' \
     atload'unalias tksv tl tmuxconf; unfunction ta tad ts tkss' \
-        for light-mode @OMZP::tmux
+        for @OMZP::tmux
 #endregion
 
 #region direnv
 zinit id-as='direnv' \
-    lucid nocompile \
+    lucid nocompile src='direnv.sh' has='asdf' \
     atclone='
-        if (($+commands[asdf])); then
-            asdf plugin add direnv
-            asdf install direnv latest
-            asdf global direnv latest
-            direnv allow $HOME
-            direnv hook zsh > direnv.sh
-        else
-            print -P "%F{33}direnv%F{220}: %F{33}asdf%F{220} %F{220}command not found%f"
-        fi
-    ' atpull'%atclone' \
-    src='direnv.sh' \
+        asdf plugin add direnv
+        asdf install direnv latest
+        asdf global direnv latest
+        direnv allow $HOME
+        direnv hook zsh > direnv.sh
+    ' atpull='%atclone' \
         for @zdharma-continuum/null
 #endregion
 
 #region eza
 zinit id-as='eza' \
-    lucid nocompile \
+    lucid nocompile has='asdf' \
     atclone='
-        if (($+commands[asdf])); then
-            asdf plugin add eza
-            asdf install eza latest
-            asdf global eza latest
-        else
-            print -P "%F{33}eza%F{220}: %F{33}asdf%F{220} %F{220}command not found%f"
-        fi
-    ' atpull'%atclone' \
+        asdf plugin add eza
+        asdf install eza latest
+        asdf global eza latest
+    ' atpull='%atclone' \
         for @zdharma-continuum/null
 #endregion
 
 #region eza-completion
-zinit wait lucid \
+zinit wait lucid light-mode \
     as'completion' \
-        for light-mode https://github.com/eza-community/eza/raw/main/completions/zsh/_eza
+        for https://github.com/eza-community/eza/raw/main/completions/zsh/_eza
 #endregion
 
 #region delta
 zinit id-as='delta' \
-    lucid nocompile \
+    lucid nocompile has='asdf' \
     atclone='
-        if (($+commands[asdf])); then
-            asdf plugin add delta
-            asdf install delta latest
-            asdf global delta latest
-        else
-            print -P "%F{33}delta%F{220}: %F{33}asdf%F{220} %F{220}command not found%f"
-        fi
-    ' atpull'%atclone' \
+        asdf plugin add delta
+        asdf install delta latest
+        asdf global delta latest
+    ' atpull='%atclone' \
         for @zdharma-continuum/null
 #endregion
 
 #region delta-completion
-zinit wait lucid \
+zinit wait lucid light-mode \
     as'completion' \
-        for light-mode https://github.com/dandavison/delta/raw/main/etc/completion/completion.zsh
+        for https://github.com/dandavison/delta/raw/main/etc/completion/completion.zsh
 #endregion
 
 #region awscli
 zinit id-as='awscli' \
-    lucid nocompile \
+    lucid nocompile has='asdf' \
     atclone='
-        if (($+commands[asdf])); then
-            asdf plugin add awscli
-            asdf install awscli latest
-            asdf global awscli latest
-        else
-            print -P "%F{33}awscli%F{220}: %F{33}asdf%F{220} %F{220}command not found%f"
-        fi
-    ' atpull'%atclone' \
+        asdf plugin add awscli
+        asdf install awscli latest
+        asdf global awscli latest
+    ' atpull='%atclone' \
         for @zdharma-continuum/null
 #endregion
 
 #region nodejs
 zinit id-as='nodejs' \
-    lucid nocompile \
+    lucid nocompile has='asdf' \
     atclone='
-        if (($+commands[asdf])); then
-            asdf plugin add nodejs
-            asdf nodejs update-nodebuild
-            local _nodejs_version=$(asdf nodejs resolve lts --latest-available)
-            asdf install nodejs $_nodejs_version
-            asdf global nodejs $_nodejs_version
-        else
-            print -P "%F{33}nodejs%F{220}: %F{33}asdf%F{220} %F{220}command not found%f"
-        fi
-    ' atpull'%atclone' \
+        asdf plugin add nodejs
+        asdf nodejs update-nodebuild
+        local _nodejs_version=$(asdf nodejs resolve lts --latest-available)
+        asdf install nodejs $_nodejs_version
+        asdf global nodejs $_nodejs_version
+    ' atpull='%atclone' \
     for @zdharma-continuum/null
 #endregion
 
 #region python
 zinit id-as='python' \
-    lucid nocompile \
+    lucid nocompile has='asdf' \
     atclone='
-        if (($+commands[asdf])); then
-            asdf plugin add python
-            local _python_version=$(asdf list all python | grep ^3.12 | sort --version-sort | tail -1)
-            asdf install python $_python_version
-            asdf global python $_python_version
-            asdf reshim python
-        else
-            print -P "%F{33}python%F{220}: %F{33}asdf%F{220} %F{220}command not found%f"
-        fi
-    ' atpull'%atclone' \
+        asdf plugin add python
+        local _python_version=$(asdf list all python | grep "^3.12" | sort --version-sort | tail -1)
+        asdf install python $_python_version
+        asdf global python $_python_version
+        asdf reshim python
+    ' atpull='%atclone' \
     for @zdharma-continuum/null
 #endregion
 
 #region pipx
 zinit id-as='pipx' \
-    lucid nocompile \
+    lucid nocompile has='python' \
     atclone='
-        if (($+commands[python])); then
-            python -m pip install --user pipx
-            pipx ensurepath
-        else
-            print -P "%F{33}pipx%F{220}: %F{33}python%F{220} %F{220}command not found%f"
-        fi
-    ' atpull'%atclone' \
+        python -m pip install --user pipx
+        pipx ensurepath
+    ' atpull='%atclone' \
         for @zdharma-continuum/null
 #endregion
 
