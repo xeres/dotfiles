@@ -20,8 +20,11 @@ zinit light-mode for \
 
 #region zsh-users/zsh-completions
 zinit wait lucid \
-    atload"zicompinit; zicdreplay" \
-    blockf \
+    atload='
+        zicompinit; zicdreplay;
+        autoload -Uz +X bashcompinit && bashcompinit
+        complete -C $(which aws_completer) aws
+    ' blockf \
         for @zsh-users/zsh-completions
 #endregion
 
@@ -182,13 +185,6 @@ zinit id-as='pipx' \
         fi
     ' atpull'%atclone' \
         for @zdharma-continuum/null
-#endregion
-
-#region zinit-compinit
-autoload -Uz compinit
-compinit
-zinit cdreplay -q
-zinit cdlist
 #endregion
 
 #region alias
