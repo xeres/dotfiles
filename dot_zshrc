@@ -61,6 +61,11 @@ zinit lucid depth=1 \
         for light-mode @romkatv/powerlevel10k
 #endregion
 
+#region jimhester/per-directory-history
+zinit lucid light-mode \
+    for @jimhester/per-directory-history
+#endregion
+
 #region asdf-vm/asdf
 zinit lucid nocompile light-mode depth=1 \
     atinit'export ASDF_DATA_DIR="$HOME/.local/share/asdf"' \
