@@ -67,10 +67,11 @@ zinit lucid light-mode \
 #endregion
 
 #region asdf-vm/asdf
-zinit lucid nocompile light-mode depth=1 \
+zinit lucid light-mode as"program" from="gh-r" \
     atinit'export ASDF_DATA_DIR="$HOME/.local/share/asdf"' \
+    atclone'./asdf completion zsh > _asdf' \
+    atpull"%atclone" \
         for @asdf-vm/asdf
-zinit cdclear -q
 #endregion
 
 #region OMZP::tmux
@@ -86,8 +87,9 @@ zinit id-as='direnv' \
     lucid nocompile src='direnv.sh' has='asdf' \
     atclone='
         asdf plugin add direnv
-        asdf install direnv latest
-        asdf global direnv latest
+        local _latest=$(asdf list all direnv | grep -P "\d+\.\d+\.\d+" | sort -V | tail -1)
+        asdf install direnv $_latest
+        (cd ~; asdf set direnv $_latest)
         direnv allow $HOME
         direnv hook zsh > direnv.sh
     ' atpull='%atclone' \
@@ -99,8 +101,9 @@ zinit id-as='eza' \
     lucid nocompile has='asdf' \
     atclone='
         asdf plugin add eza
-        asdf install eza latest
-        asdf global eza latest
+        local _latest=$(asdf list all eza | grep -P "\d+\.\d+\.\d+" | sort -V | tail -1)
+        asdf install eza $_latest
+        (cd ~; asdf set eza $_latest)
     ' atpull='%atclone' \
         for @zdharma-continuum/null
 #endregion
@@ -116,8 +119,8 @@ zinit id-as='delta' \
     lucid nocompile has='asdf' \
     atclone='
         asdf plugin add delta
-        asdf install delta latest
-        asdf global delta latest
+        local _latest=$(asdf list all delta | grep -P "\d+\.\d+\.\d+"  | sort -V | tail -1)
+        asdf install delta $_latest
     ' atpull='%atclone' \
         for @zdharma-continuum/null
 #endregion
@@ -133,8 +136,9 @@ zinit id-as='awscli' \
     lucid nocompile has='asdf' \
     atclone='
         asdf plugin add awscli
-        asdf install awscli latest
-        asdf global awscli latest
+        local _latest=$(asdf list all awscli | grep -P "\d+\.\d+\.\d+"  | sort -V | tail -1)
+        asdf install awscli $_latest
+        (cd ~; asdf set awscli $_latest)
     ' atpull='%atclone' \
         for @zdharma-continuum/null
 #endregion
@@ -144,10 +148,10 @@ zinit id-as='nodejs' \
     lucid nocompile has='asdf' \
     atclone='
         asdf plugin add nodejs
-        asdf nodejs update-nodebuild
-        local _nodejs_version=$(asdf nodejs resolve lts --latest-available)
-        asdf install nodejs $_nodejs_version
-        asdf global nodejs $_nodejs_version
+        asdf cmd nodejs update-nodebuild
+        local _latest=$(asdf cmd nodejs resolve lts --latest-available)
+        asdf install nodejs $_latest
+        (cd ~; asdf set nodejs $_latest)
     ' atpull='%atclone' \
     for @zdharma-continuum/null
 #endregion
@@ -157,9 +161,9 @@ zinit id-as='python' \
     lucid nocompile has='asdf' \
     atclone='
         asdf plugin add python
-        local _python_version=$(asdf list all python | grep "^3.12" | sort --version-sort | tail -1)
-        asdf install python $_python_version
-        asdf global python $_python_version
+        local _latest=$(asdf list all python | grep "^3.12" | sort --version-sort | tail -1)
+        asdf install python $_latest
+        (cd ~; asdf set python $_latest)
         asdf reshim python
     ' atpull='%atclone' \
     for @zdharma-continuum/null
