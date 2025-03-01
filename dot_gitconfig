@@ -29,3 +29,9 @@
 
 [alias]
     ignore = !curl -L -s https://www.gitignore.io/api/$@
+
+[credential "https://github.com"]
+    helper = !gh auth git-credential
+
+[credential "https://gist.github.com"]
+    helper = !gh auth git-credential

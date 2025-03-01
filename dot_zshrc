@@ -143,6 +143,18 @@ zinit id-as='awscli' \
         for @zdharma-continuum/null
 #endregion
 
+#region github-cli
+zinit id-as='github-cli' \
+    lucid nocompile has='asdf' \
+    atclone='
+        asdf plugin add github-cli
+        local _latest=$(asdf list all github-cli | grep -P "\d+\.\d+\.\d+"  | sort -V | tail -1)
+        asdf install github-cli $_latest
+        (cd ~; asdf set github-cli $_latest)
+    ' atpull='%atclone' \
+        for @zdharma-continuum/null
+#endregion
+
 #region nodejs
 zinit id-as='nodejs' \
     lucid nocompile has='asdf' \
