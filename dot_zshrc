@@ -164,7 +164,6 @@ zinit id-as='python' \
         local _latest=$(asdf list all python | grep "^3.12" | sort --version-sort | tail -1)
         asdf install python $_latest
         (cd ~; asdf set python $_latest)
-        asdf reshim python
     ' atpull='%atclone' \
     for @zdharma-continuum/null
 #endregion
