@@ -163,7 +163,7 @@ zinit id-as='nodejs' \
     atclone='
         asdf plugin add nodejs
         asdf cmd nodejs update-nodebuild
-        local _latest=$(asdf cmd nodejs resolve lts --latest-available)
+        local _latest=$(asdf cmd nodejs resolve lts)
         asdf install nodejs $_latest
         (cd ~; asdf set nodejs $_latest)
     ' atpull='%atclone' \
