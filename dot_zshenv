@@ -1,7 +1,7 @@
 #!/usr/bin/zsh
 
 mkdir -p "$HOME/.local/bin"
-export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/.local/bin:/usr/share/git-core/contrib:$PATH"
 
 export LESSHISTFILE=-
 

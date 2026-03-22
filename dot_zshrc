@@ -117,14 +117,15 @@ zinit wait lucid light-mode \
 #endregion
 
 #region delta
-zinit id-as='delta' \
-    lucid nocompile has='asdf' \
-    atclone='
-        asdf plugin add delta
-        local _latest=$(asdf list all delta | grep -P "\d+\.\d+\.\d+"  | sort -V | tail -1)
-        asdf install delta $_latest
-    ' atpull='%atclone' \
-        for @zdharma-continuum/null
+# zinit id-as='delta' \
+#     lucid nocompile has='asdf' \
+#     atclone='
+#         asdf plugin add delta
+#         local _latest=0.18.2
+#         asdf install delta $_latest
+#         (cd ~; asdf set delta $_latest)
+#     ' atpull='%atclone' \
+#         for @zdharma-continuum/null
 #endregion
 
 #region delta-completion
