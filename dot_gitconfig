@@ -6,10 +6,11 @@
 
 [core]
     abbrev = 8
-    pager = delta
+#    pager = delta
 
 [interactive]
-    diffFilter = delta --color-only
+#    diffFilter = delta --color-only
+    diffFilter = diff-highlight
 
 [delta]
     features = side-by-side line-numbers decorations
@@ -35,3 +36,11 @@
 
 [credential "https://gist.github.com"]
     helper = !gh auth git-credential
+
+[pager]
+    log = diff-highlight | less
+    pager = diff-highlight | less
+    diff = diff-highlight | less
+
+[diff]
+    compactionHeuristic = true
