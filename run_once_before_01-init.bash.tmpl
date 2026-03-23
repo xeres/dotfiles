@@ -26,6 +26,12 @@ sudo apt-get install -y \
 if [ ! -f /etc/yum.conf ]; then
     sudo sed '^\[main\]/ainstall_weak_deps=false' /etc/yum.conf
 fi
+
+sudo yum check-update
+sudo yum update -y
+
+sudo yum intsall -y \
+    gcc make patch zlib-devel bzip2 bzip2-devel readline-devel sqlite sqlite-devel openssl11-devel tk-devel libffi-devel xz-devel
 {{ end -}}
 
 if [ $(basename "$SHELL") != "zsh" ]; then
