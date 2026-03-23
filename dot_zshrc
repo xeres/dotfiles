@@ -70,7 +70,7 @@ zinit lucid light-mode \
 zinit lucid light-mode as"program" from="gh-r" \
     atinit'
         export ASDF_DATA_DIR="$HOME/.local/share/asdf"
-        export PATH="$PATH:$ASDF_DATA_DIR/shims"
+        export PATH="$ASDF_DATA_DIR/shims:$PATH"
     ' atclone'./asdf completion zsh > _asdf' \
     atpull"%atclone" \
         for @asdf-vm/asdf
