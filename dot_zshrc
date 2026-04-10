@@ -183,6 +183,17 @@ zinit id-as='python' \
     for @zdharma-continuum/null
 #endregion
 
+#region uv
+zinit id-as='uv' \
+    lucid nocompile has='asdf' \
+    atclone='
+        asdf plugin add uv
+        asdf install uv latest
+        (cd ~; asdf set uv latest)
+    ' atpull='%atclone' \
+        for @zdharma-continuum/null
+#endregion
+
 #region pipx
 zinit id-as='pipx' \
     lucid nocompile has='python' \
