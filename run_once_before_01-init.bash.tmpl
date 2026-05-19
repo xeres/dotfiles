@@ -9,28 +9,10 @@ APT::Install-Recommends 0;
 APT::Install-Suggests 0;
 __EOF__
 fi
-
-sudo apt-get update
-sudo apt-get upgrade -y
-
-sudo apt-get install -y \
-    zsh \
-    zip unzip \
-    tofrodos \
-    wslu \
-    make build-essential libssl-dev zlib1g-dev \
-    libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm \
-    libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev
 {{ else if eq .chezmoi.osRelease.id "amzn" -}}
 if [ ! -f /etc/yum.conf ]; then
     sudo sed '^\[main\]/ainstall_weak_deps=false' /etc/yum.conf
 fi
-
-sudo yum check-update
-sudo yum update -y
-
-sudo yum install -y \
-    gcc make patch zlib-devel bzip2 bzip2-devel readline-devel sqlite sqlite-devel openssl11-devel tk-devel libffi-devel xz-devel
 {{ end -}}
 
 if [ $(basename "$SHELL") != "zsh" ]; then
