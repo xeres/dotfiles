@@ -63,6 +63,18 @@ zinit lucid light-mode \
     for @jimhester/per-directory-history
 #endregion
 
+#region jdx/mise
+zinit lucid light-mode as="command" from="gh-r" \
+    atpull="%atclone" \
+        for jdx/usage
+
+zinit lucid light-mode as"command" from"gh-r" \
+    atclone"chmod +x mise*; ./mise* completion zsh > _mise" atpull"%atclone" \
+    mv"mise* -> mise" \
+    atload='eval "$(mise activate zsh)"' \
+        for jdx/mise
+#endregion
+
 #region OMZP::tmux
 zinit wait lucid light-mode \
     atinit'export ZSH_TMUX_AUTOSTART=true; export ZSH_TMUX_UNICODE=true' \
