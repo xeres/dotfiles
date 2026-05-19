@@ -1,4 +1,4 @@
-#!/usr/bin/zsh
+#!/usr/bin/env zsh
 
 #region zinit
 if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
