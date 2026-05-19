@@ -51,14 +51,11 @@ zinit lucid light-mode \
         for @zdharma-continuum/fast-syntax-highlighting
 #endregion
 
-#region romkatv/powerlevel10k
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-    source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
-zinit lucid depth=1 \
-    atinit'[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh' \
-        for light-mode @romkatv/powerlevel10k
+#region starship/starship
+zinit ice as"command" from"gh-r" \
+          atclone"./starship init zsh > init.zsh; ./starship completions zsh > _starship" \
+          atpull"%atclone" src"init.zsh"
+zinit light starship/starship
 #endregion
 
 #region jimhester/per-directory-history
