@@ -69,7 +69,7 @@ zinit lucid light-mode \
 #region OMZP::tmux
 zinit wait lucid light-mode \
     atinit'export ZSH_TMUX_AUTOSTART=true; export ZSH_TMUX_UNICODE=true' \
-    atclone'curl -sOL https://github.com/ohmyzsh/ohmyzsh/raw/master/plugins/tmux/tmux.extra.conf' atpull='%atclone' \
+    atclone'curl -sOL https://github.com/ohmyzsh/ohmyzsh/raw/master/plugins/tmux/tmux.{only,extra}.conf' atpull='%atclone' \
     atload'unalias tksv tl tmuxconf; unfunction ta tad ts tkss' \
         for @OMZP::tmux
 #endregion
