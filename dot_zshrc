@@ -25,18 +25,14 @@ zinit lucid reset \
  atclone"[[ -z ${commands[dircolors]} ]] && local P=g
     \${P}sed -i '/DIR/c\DIR 38;5;63;1' LS_COLORS; \
     \${P}dircolors -b LS_COLORS > clrs.zsh" \
- atpull'%atclone' pick"clrs.zsh" nocompile'!' \
+ atpull'%atclone' pick'clrs.zsh' nocompile'!' \
  atload'zstyle ":completion:*:default" list-colors "${(s.:.)LS_COLORS}";' for \
     trapd00r/LS_COLORS
 #endregion
 
 #region zsh-users/zsh-completions
-zinit wait lucid blockf depth=1 \
-    atload='
-        zicompinit; zicdreplay;
-        autoload -Uz +X bashcompinit && bashcompinit
-        complete -C $(which aws_completer) aws
-    ' \
+zinit wait'0a' lucid blockf depth=1 \
+    atload'zicompinit; zicdreplay' \
         for @zsh-users/zsh-completions
 #endregion
 
@@ -52,9 +48,9 @@ zinit lucid light-mode \
 #endregion
 
 #region starship/starship
-zinit ice as"command" from"gh-r" \
-          atclone"./starship init zsh > init.zsh; ./starship completions zsh > _starship" \
-          atpull"%atclone" src"init.zsh"
+zinit ice as'command' from'gh-r' \
+    atclone'./starship init zsh > init.zsh; ./starship completions zsh > _starship' atpull'%atclone' \
+    src'init.zsh'
 zinit light starship/starship
 #endregion
 
@@ -64,29 +60,27 @@ zinit lucid light-mode \
 #endregion
 
 #region jdx/mise
-zinit lucid light-mode as="command" from="gh-r" \
-    atpull="%atclone" \
+zinit lucid light-mode as'command' from'gh-r' \
+    atpull'%atclone' \
         for jdx/usage
 
-zinit lucid light-mode as"command" from"gh-r" \
-    atclone"chmod +x mise*; ./mise* completion zsh > _mise" atpull"%atclone" \
-    mv"mise* -> mise" \
+zinit lucid light-mode as'command' from'gh-r' \
+    atclone'chmod +x mise*; ./mise* completion zsh > _mise' atpull'%atclone' \
+    mv'mise* -> mise' \
     atload='eval "$(mise activate zsh)"' \
         for jdx/mise
 #endregion
 
 #region tmux
-zinit id-as='tmux' \
-    lucid nocompile has='mise' \
-    atclone='mise use -g tmux' atpull='%atclone' \
+zinit id-as'tmux' has'mise' lucid nocompile \
+    atclone'mise use -g tmux' atpull'%atclone' \
         for @zdharma-continuum/null
 #endregion
 
 #region OMZP::tmux
 zinit wait lucid light-mode \
     atinit'export ZSH_TMUX_AUTOSTART=true; export ZSH_TMUX_UNICODE=true' \
-    atclone'
-        curl -sOL https://github.com/ohmyzsh/ohmyzsh/raw/master/plugins/tmux/tmux.only.conf
+    atclone'curl -sOL https://github.com/ohmyzsh/ohmyzsh/raw/master/plugins/tmux/tmux.only.conf
         curl -sOL https://github.com/ohmyzsh/ohmyzsh/raw/master/plugins/tmux/tmux.extra.conf
         git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm' atpull='%atclone' \
     atload'unalias tds tksv tl tmuxconf; unfunction ta tad tkss to ts' \
@@ -94,10 +88,9 @@ zinit wait lucid light-mode \
 #endregion
 
 #region direnv
-zinit id-as='direnv' \
-    lucid nocompile has='mise' \
-    atclone='mise use -g direnv' atpull='%atclone' \
-    atload='eval "$(direnv hook zsh)"' \
+zinit id-as'direnv' has'mise' lucid nocompile \
+    atclone'mise use -g tmux' atpull'%atclone' \
+    atload'eval "$(direnv hook zsh)"' \
         for @zdharma-continuum/null
 #endregion
 
