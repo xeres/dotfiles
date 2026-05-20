@@ -75,11 +75,21 @@ zinit lucid light-mode as"command" from"gh-r" \
         for jdx/mise
 #endregion
 
+#region tmux
+zinit id-as='tmux' \
+    lucid nocompile has='mise' \
+    atclone='mise use -g tmux' atpull='%atclone' \
+        for @zdharma-continuum/null
+#endregion
+
 #region OMZP::tmux
 zinit wait lucid light-mode \
     atinit'export ZSH_TMUX_AUTOSTART=true; export ZSH_TMUX_UNICODE=true' \
-    atclone'curl -sOL https://github.com/ohmyzsh/ohmyzsh/raw/master/plugins/tmux/tmux.{only,extra}.conf' atpull='%atclone' \
-    atload'unalias tksv tl tmuxconf; unfunction ta tad ts tkss' \
+    atclone'
+        curl -sOL https://github.com/ohmyzsh/ohmyzsh/raw/master/plugins/tmux/tmux.only.conf
+        curl -sOL https://github.com/ohmyzsh/ohmyzsh/raw/master/plugins/tmux/tmux.extra.conf
+        git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm' atpull='%atclone' \
+    atload'unalias tds tksv tl tmuxconf; unfunction ta tad tkss to ts' \
         for @OMZP::tmux
 #endregion
 
