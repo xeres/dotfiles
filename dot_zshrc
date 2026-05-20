@@ -93,6 +93,13 @@ zinit wait lucid light-mode \
         for @OMZP::tmux
 #endregion
 
+#region direnv
+zinit id-as='direnv' \
+    lucid nocompile has='mise' \
+    atclone='mise use -g direnv' atpull='%atclone' \
+        for @zdharma-continuum/null
+#endregion
+
 #region alias
 if (( $+commands[eza] )); then
   alias ls='eza --header --time-style long-iso'
