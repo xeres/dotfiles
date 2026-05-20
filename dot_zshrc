@@ -97,6 +97,7 @@ zinit wait lucid light-mode \
 zinit id-as='direnv' \
     lucid nocompile has='mise' \
     atclone='mise use -g direnv' atpull='%atclone' \
+    atload='eval "$(direnv hook zsh)"' \
         for @zdharma-continuum/null
 #endregion
 
