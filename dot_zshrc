@@ -100,8 +100,6 @@ if (( $+commands[eza] )); then
 else
   alias ls='ls --color=auto --file-type --time-style long-iso'
 fi
-alias grep='grep --color=auto'
-alias diff='diff --color=auto'
 #endregion
 
 #region hook
