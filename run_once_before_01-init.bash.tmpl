@@ -16,7 +16,7 @@ _conf=/etc/yum.conf
 _conf=/etc/dnf/dnf.conf
 {{   end -}}
 if [ -f $_conf ]; then
-    sudo sed '/^\[main\]/ainstall_weak_deps=False' $_conf
+    sudo sed -i '/^\[main\]/ainstall_weak_deps=False' $_conf >/dev/null
 else
     sudo tee $_conf << __EOF__ >/dev/null
 [main]
