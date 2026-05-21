@@ -10,8 +10,18 @@ APT::Install-Suggests 0;
 __EOF__
 fi
 {{ else if eq .chezmoi.osRelease.id "amzn" -}}
-if [ ! -f /etc/yum.conf ]; then
-    sudo sed '^\[main\]/ainstall_weak_deps=false' /etc/yum.conf
+{{   if eq .chezmoi.osRelease.versionID "2" -}}
+_conf=/etc/yum.conf
+{{   else -}}
+_conf=/etc/dnf/dnf.conf
+{{   end -}}
+if [ -f $_conf ]; then
+    sudo sed '^\[main\]/ainstall_weak_deps=false' $_conf
+else
+    sudo tee $_conf << __EOF__ >/dev/null
+[main]
+install_weak_deps=false
+__EOF__
 fi
 {{ end -}}
 
