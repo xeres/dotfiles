@@ -1,7 +1,14 @@
 #!/usr/bin/zsh
 
+if [ -d /usr/share/git-core/contrib ]; then
+    export PATH="/usr/share/git-core/contrib:$PATH"
+fi
+
 mkdir -p "$HOME/.local/bin"
-export PATH="$HOME/.local/bin:/usr/share/git-core/contrib:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
+
+mkdir -p "$HOME/.toolbox/bin"
+export PATH="$HOME/.toolbox/bin:$PATH"
 
 export LESSHISTFILE=-
 
