@@ -48,9 +48,26 @@ zinit lucid light-mode \
 #endregion
 
 #region starship/starship
+# SEE ALSO: https://github.com/romkatv/powerlevel10k/issues/888#issuecomment-657969840
 zinit ice as'command' from'gh-r' \
     atclone'./starship init zsh > init.zsh; ./starship completions zsh > _starship' atpull'%atclone' \
-    src'init.zsh'
+    src'init.zsh' \
+    atload'
+        set-long-prompt() { PROMPT=$(starship prompt) }
+        precmd_functions=(set-long-prompt)
+
+        set-short-prompt() {
+        _transient_prompt=$(starship module character)
+        if [[ $PROMPT != $_transient_prompt ]]; then
+            PROMPT=$_transient_prompt
+            zle .reset-prompt
+        fi
+        }
+
+        zle-line-finish() { set-short-prompt }
+        zle -N zle-line-finish
+
+        trap "set-short-prompt; return 130" INT'
 zinit light starship/starship
 #endregion
 
