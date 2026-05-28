@@ -110,6 +110,12 @@ zinit id-as'awscli' has'mise' wait'0b' lucid nocompile \
         for @zdharma-continuum/null
 #endregion
 
+#region uv
+zinit id-as'uv' has'mise' lucid nocompile \
+    atclone'mise use -g uv' atpull'%atclone' \
+        for @zdharma-continuum/null
+#endregion
+
 #region alias
 if (( $+commands[eza] )); then
   alias ls='eza --header --time-style long-iso'
