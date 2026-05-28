@@ -122,6 +122,12 @@ zinit id-as'uv' has'mise' lucid nocompile \
         for @zdharma-continuum/null
 #endregion
 
+#region node
+zinit id-as'node' has'mise' lucid nocompile \
+    atclone'MISE_NODE_GPG_VERIFY=false mise use -g node@lts' atpull'%atclone' \
+        for @zdharma-continuum/null
+#endregion
+
 #region alias
 if (( $+commands[eza] )); then
   alias ls='eza --header --time-style long-iso'
