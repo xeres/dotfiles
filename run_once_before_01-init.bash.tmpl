@@ -1,29 +1,46 @@
 #!/usr/bin/env bash
 
-set -e
+set -Eeuo pipefail
 
-{{ if eq .chezmoi.osRelease.id "ubuntu" -}}
-if [ ! -f /etc/apt/apt.conf.d/00-no-install-recommends ]; then
-    sudo tee /etc/apt/apt.conf.d/00-no-install-recommends << __EOF__ >/dev/null
+{{if eq .chezmoi.os "linux" -}}
+{{  if eq .chezmoi.osRelease.id "ubuntu" -}}
+      # Ubuntu
+      if [ ! -f /etc/apt/apt.conf.d/00-no-install-recommends ]; then
+        sudo tee /etc/apt/apt.conf.d/00-no-install-recommends << __EOF__ >/dev/null
 APT::Install-Recommends 0;
 APT::Install-Suggests 0;
 __EOF__
-fi
-{{ else if eq .chezmoi.osRelease.id "amzn" -}}
-{{   if eq .chezmoi.osRelease.versionID "2" -}}
-_conf=/etc/yum.conf
-{{   else -}}
-_conf=/etc/dnf/dnf.conf
-{{   end -}}
-if [ -f $_conf ]; then
-    sudo sed -i '/^\[main\]/ainstall_weak_deps=False' $_conf >/dev/null
-else
-    sudo tee $_conf << __EOF__ >/dev/null
+      fi
+{{  else if eq .chezmoi.osRelease.id "amzn" -}}
+{{    if eq .chezmoi.osRelease.versionID "2" -}}
+        # AL2
+        _conf=/etc/yum.conf
+{{    else if eq .chezmoi.osRelease.versionID "2023" -}}
+        # AL2023
+        _conf=/etc/dnf/dnf.conf
+{{    else  -}}
+        echo "{{ .chezmoi.osRelease.versionID }}: unknown distribution major version" >&2
+        exit 1
+{{    end  -}}
+    # Amazon Linux (AL2 & AL2023)
+    if [ -f $_conf ]; then
+      sudo sed -i '/^\[main\]/ainstall_weak_deps=False' $_conf >/dev/null
+    else
+      sudo tee $_conf << __EOF__ >/dev/null
 [main]
 install_weak_deps=False
 __EOF__
-fi
-{{ end -}}
+    fi
+{{  else  -}}
+      echo "{{ .chezmoi.osRelease.id }}: unknown distribution" >&2
+      exit 1
+{{  end -}}
+{{else if eq .chezmoi.os "darwin" -}}
+  # MacOS
+{{else -}}
+  echo "{{ .chezmoi.os }}: unknown platform" >&2
+  exit 1
+{{end -}}
 
 if [ $(basename "$SHELL") != "zsh" ]; then
     sudo chsh -s $(which zsh) ${USER}
