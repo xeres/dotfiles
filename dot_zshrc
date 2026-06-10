@@ -130,9 +130,16 @@ zinit id-as'node' has'mise' lucid nocompile \
 
 #region alias
 if (( $+commands[eza] )); then
-  alias ls='eza --header --time-style long-iso'
+    alias ls='eza --header --time-style long-iso'
 else
-  alias ls='ls --color=auto --file-type --time-style long-iso'
+    case "$OSTYPE" in
+        linux*)
+            alias ls='ls --color=auto -F --time-style long-iso'
+        ;;
+        darwin*)
+            alias ls='ls --color=auto -F -D"%Y-%m-%d %H:%M"'
+        ;;
+    esac
 fi
 #endregion
 
