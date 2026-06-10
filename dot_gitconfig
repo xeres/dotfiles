@@ -2,29 +2,23 @@
     name = Xeres
     email = 294146+xeres@users.noreply.github.com
 
-[init]
-    defaultBranch = main
-
 [pull]
     ff = only
 
 [core]
     abbrev = 8
-#    pager = delta
 
-[interactive]
-#    diffFilter = delta --color-only
-    diffFilter = diff-highlight
+[diff]
+    indentHeuristic = true
 
-[delta]
-    features = side-by-side line-numbers decorations
-    whitespace-error-style = 22 reverse
+## GitHub CLI
+[credential "https://github.com"]
+    helper = !gh auth git-credential
 
-[delta "decorations"]
-    commit-decoration-style = bold yellow box ul
-    file-style = bold yellow ul
-    file-decoration-style = none
+[credential "https://gist.github.com"]
+    helper = !gh auth git-credential
 
+## AWS CodeCommit
 [protocol "codecommit"]
     allow = always
 
@@ -32,19 +26,6 @@
     helper = !aws codecommit credential-helper $@
     UseHttpPath = true
 
+## Aliases
 [alias]
     ignore = !curl -L -s https://www.gitignore.io/api/$@
-
-[credential "https://github.com"]
-    helper = !gh auth git-credential
-
-[credential "https://gist.github.com"]
-    helper = !gh auth git-credential
-
-[pager]
-    log = diff-highlight | less
-    pager = diff-highlight | less
-    diff = diff-highlight | less
-
-[diff]
-    compactionHeuristic = true
