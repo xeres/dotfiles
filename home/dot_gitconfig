@@ -1,0 +1,56 @@
+[user]
+    name = Xeres
+    email = 294146+xeres@users.noreply.github.com
+
+[column]
+    ui = auto
+
+[init]
+    # for version <3.0
+    defaultBranch = main
+
+[branch]
+    sort = -committerdate
+
+[tag]
+    sort = version:refname
+
+[diff]
+    algorithm = histogram
+    colorMoved = dimmed-zebra
+    mnemonicPrefix = true
+    renames = copies
+
+[push]
+    default = simple
+    autoSetupRemote = true
+
+    followTags = true
+
+[fetch]
+    all = true
+
+    prune = true
+    pruneTags = true
+
+[merge]
+    # for version >=2.35
+    conflictstyle = zdiff3
+
+[pull]
+    ff = only
+
+[rebase]
+    autoSquash = true
+    autoStash = true
+    updateRefs = true
+
+[commit]
+    verbose = true
+
+[rerere]
+    enabled = true
+    autoupdate = true
+
+[help]
+    autocorrect = prompt
