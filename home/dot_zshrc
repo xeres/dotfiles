@@ -1,0 +1,34 @@
+#!/usr/bin/env zsh
+
+#region hook
+chpwd() ls
+#endregion
+
+#region changing_directories
+setopt AUTO_CD
+setopt AUTO_PUSHD
+setopt PUSHD_IGNORE_DUPS
+#endregion
+
+#region completion
+setopt NO_AUTO_MENU               # 補完時に TAB キーで選択肢を移動しない
+setopt LIST_PACKED                # 補完候補を表示する際に表示を詰める
+#endregion
+
+#region history
+setopt APPEND_HISTORY             # zsh が終了した際に HISTFILE を置き換えるのではなく追記する
+setopt EXTENDED_HISTORY           # HISTFILE にタイムスタンプを記録する
+setopt HIST_EXPIRE_DUPS_FIRST     # 重複する履歴を削除してから保存する
+setopt HIST_IGNORE_ALL_DUPS       # 履歴の内容と重複する行を履歴リストに追加しない
+setopt HIST_IGNORE_SPACE          # 先頭がスペースで始まる行を履歴に追加しない
+setopt HIST_LEX_WORDS             # クォートされた空白を正しく取り扱う
+setopt HIST_NO_STORE              # history コマンドを履歴に追加しない
+setopt HIST_REDUCE_BLANKS         # 履歴に追加する際に不要な空白を取り除く
+setopt HIST_SAVE_NO_DUPS          # HISTFILE に重複する履歴を保存しない
+setopt HIST_VERIFY                # 履歴補完した内容を即実行せず行エディタに読み込む
+setopt SHARE_HISTORY              # 複数の zsh 間で HISTFILE を共有する
+#endregion
+
+#region zle
+setopt NO_BEEP                    # ビープ無効
+#endregion
