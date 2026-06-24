@@ -1,3 +1,8 @@
+{{ $git_version_output := output "git" "--version" | trim -}}
+{{ $git_version_str := regexReplaceAll "^git version " $git_version_output "" -}}
+{{ $git_version := splitList "." $git_version_str -}}
+{{ $git_major_version := index $git_version 0 | atoi -}}
+{{ $git_minor_version := index $git_version 1 | atoi -}}
 [user]
     name = Xeres
     email = 294146+xeres@users.noreply.github.com
@@ -5,9 +10,10 @@
 [column]
     ui = auto
 
+{{ if lt 2 $git_major_version -}}
 [init]
-    # for version <3.0
     defaultBranch = main
+{{ end -}}
 
 [branch]
     sort = -committerdate
@@ -33,9 +39,15 @@
     prune = true
     pruneTags = true
 
+{{ $git_merge_conflictstyle := "diff3" -}}
+{{ if lt 2 $git_major_version -}}
+{{     $git_merge_conflictstyle = "zdiff3" -}}
+{{ else if and (eq $git_major_version 2) (lt 35 $git_minor_version) -}}
+{{     $git_merge_conflictstyle = "zdiff3" -}}
+{{ end -}}
+
 [merge]
-    # for version >=2.35
-    conflictstyle = zdiff3
+    conflictstyle = {{ $git_merge_conflictstyle }}
 
 [pull]
     ff = only
