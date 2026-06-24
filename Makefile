@@ -12,4 +12,4 @@ docker:
 .PHONY: test
 test:
 	docker build --tag $(DOCKER_IMAGE_NAME) .
-	docker run --rm $(DOCKER_IMAGE_NAME) bats /home/$(DOCKER_USER)/.local/share/chezmoi/test/
+	docker run --rm $(DOCKER_IMAGE_NAME) /home/$(DOCKER_USER)/.local/share/chezmoi/scripts/run_test.bash
