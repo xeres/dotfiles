@@ -8,3 +8,8 @@ docker:
 		-v "$${PWD}:/home/$(DOCKER_USER)/.local/share/chezmoi" \
 		--hostname $(DOCKER_IMAGE_NAME)-hostname \
 		$(DOCKER_IMAGE_NAME)
+
+.PHONY: test
+test:
+	docker build --tag $(DOCKER_IMAGE_NAME) .
+	docker run --rm $(DOCKER_IMAGE_NAME) bats /home/$(DOCKER_USER)/.local/share/chezmoi/test/
