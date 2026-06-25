@@ -1,0 +1,29 @@
+#!/usr/bin/env bats
+
+@test "dotfiles exist in home directory" {
+  local files=(
+    "$HOME/.config/mise/config.toml"
+    "$HOME/.config/uv/uv.toml"
+    "$HOME/.gitconfig"
+    "$HOME/.npmrc"
+    "$HOME/.vimrc"
+    "$HOME/.zshrc"
+  )
+  local missing=()
+  for f in "${files[@]}"; do
+    [[ -e "$f" ]] || missing+=("$f")
+  done
+  if (( ${#missing[@]} )); then
+    printf 'missing: %s\n' "${missing[@]}"
+    return 1
+  fi
+}
+
+@test "zsh is installed" {
+  command -v zsh
+}
+
+@test "user login shell is zsh" {
+  run getent passwd "$USER"
+  [[ "$output" == *"/zsh" ]]
+}
