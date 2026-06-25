@@ -1,0 +1,14 @@
+#!/usr/bin/env zsh
+
+local directories=(
+    "$HOME/.local/bin"
+    "$HOME/.local/share/mise/shims"
+)
+
+for dir in "${directories[@]}"; do
+    if [ ! -d "$dir" ]; then
+        mkdir -p "$dir"
+    fi
+
+    export PATH="$dir:$PATH"
+done

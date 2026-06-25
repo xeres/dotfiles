@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 {{ if or (eq .chezmoi.osRelease.id "debian") (eq .chezmoi.osRelease.idLike "debian") -}}
 {{ include "../install/ubuntu/zsh.sh" -}}
 {{ end -}}

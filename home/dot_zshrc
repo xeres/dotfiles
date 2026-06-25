@@ -21,11 +21,9 @@ zinit light-mode for \
 #endregion
 
 #region mise
-zinit id-as'mise' as'command' from'gh-r' \
-    mv'mise* -> mise' \
-    atclone'chmod +x ./mise; ./mise completion zsh > _mise' atpull'%atclone' \
-    atload='eval "$(mise activate zsh)"' \
-        for @jdx/mise
+zinit id-as'mise' as'null' has'mise' \
+    atload'eval "$(mise activate zsh)"' \
+        for zdharma-continuum/null
 #endregion
 
 #region hook

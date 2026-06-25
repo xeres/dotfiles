@@ -1,8 +1,12 @@
 #!/usr/bin/env bats
 
 setup() {
-  export PATH="$HOME/.local/share/zinit/plugins/mise:$PATH"
+  export PATH="$HOME/.local/bin:$PATH"
   eval "$(mise activate bash)"
+}
+
+@test "mise is installed" {
+  command -v mise
 }
 
 @test "node is available" {
