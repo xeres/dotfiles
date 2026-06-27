@@ -13,7 +13,8 @@ dotfiles for Ubuntu and macOS.
 ## Setup
 
 ```bash
-sh -c "$(curl -fsLS get.chezmoi.io)" -- -b ~/.local/bin init --apply xeres
+PATH="$HOME/.local/bin:$PATH"
+sh -c "$(curl -fsLS get.chezmoi.io)" -- -b ~/.local/bin init --apply xeres --exclude=encrypted
 ```
 
 ## Test
