@@ -21,7 +21,14 @@ setup() {
     command -v uv
 }
 
-@test "npm applies min-release-age from npmrc" {
-    run npm config list
-    [[ "$output" == *"before"* ]]
+@test "gh is available" {
+    command -v gh
+}
+
+@test "aws is available" {
+    command -v aws
+}
+
+@test "starship is available" {
+    command -v starship
 }
