@@ -10,7 +10,7 @@
 [column]
     ui = auto
 
-{{ if lt 2 $git_major_version -}}
+{{ if and (eq $git_major_version 2) (le 28 $git_minor_version) -}}
 [init]
     defaultBranch = main
 {{ end -}}
