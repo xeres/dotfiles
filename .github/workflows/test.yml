@@ -14,13 +14,13 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
-        with:
-          path: .local/share/chezmoi
       - uses: mig4/setup-bats@af9a00deb21b5d795cabfeaa8d9060410377686d # v1.2.0
         with:
           bats-version: 1.13.0
       - name: Install chezmoi and apply
         run: |
+          mkdir -p ~/.local/share
+          ln -s "$GITHUB_WORKSPACE" ~/.local/share/chezmoi
           echo "$HOME/.local/bin" >> "$GITHUB_PATH"
           sh -c "$(curl -fsLS get.chezmoi.io)" -- -b ~/.local/bin apply
       - name: Run tests
