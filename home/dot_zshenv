@@ -3,6 +3,8 @@
 local directories=(
     "$HOME/.local/bin"
     "$HOME/.local/share/mise/shims"
+    "$HOME/.aim/mcp-servers"
+    "$HOME/.toolbox/bin"
 )
 
 for dir in "${directories[@]}"; do
