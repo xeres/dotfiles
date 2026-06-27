@@ -4,3 +4,5 @@ minimum_release_age = "7d"
 [tools]
 node = "lts"
 uv = "latest"
+
+starship = "latest"

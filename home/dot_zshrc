@@ -26,6 +26,22 @@ zinit id-as'mise' as'null' has'mise' \
         for zdharma-continuum/null
 #endregion
 
+#region olets/zsh-transient-prompt
+zinit wait'0' lucid light-mode \
+    for olets/zsh-transient-prompt
+#endregion
+
+#region starship
+zinit id-as'starship' as'null' has'starship' \
+    atclone'starship init zsh > init.zsh; starship completions zsh > _starship' atpull'%atclone' \
+    src'init.zsh' \
+    atload'
+        function _pretransit() { TRANSIENT_PROMPT_PROMPT=$(starship prompt) }
+        TRANSIENT_PROMPT_PRETRANSIENT=_pretransit
+        TRANSIENT_PROMPT_TRANSIENT_PROMPT=$(starship module character)' \
+            for zdharma-continuum/null
+#endregion
+
 #region hook
 chpwd() ls
 #endregion
