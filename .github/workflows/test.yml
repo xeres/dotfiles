@@ -22,6 +22,8 @@ jobs:
           detik-install: false
           file-install: false
       - name: Install chezmoi and apply
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           mkdir -p ~/.local/share
           ln -s "$GITHUB_WORKSPACE" ~/.local/share/chezmoi
