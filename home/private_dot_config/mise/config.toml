@@ -11,3 +11,4 @@ uv = "latest"
 starship = "latest"
 
 gh = "latest"
+awscli = "latest"
