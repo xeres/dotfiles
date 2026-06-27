@@ -26,7 +26,8 @@ __EOF__
 
 USER $USER
 ENV \
-    USER=$USER
+    USER=$USER \
+    NONINTERACTIVE=1
 
 WORKDIR /home/$USER
 COPY --chown=$USER:$USER . /home/$USER/.local/share/chezmoi

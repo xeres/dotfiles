@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+{{ if eq .chezmoi.os "darwin" -}}
+{{ include "../install/macos/brew.sh" -}}
+{{ end -}}
