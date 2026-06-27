@@ -33,7 +33,7 @@ WORKDIR /home/$USER
 COPY --chown=$USER:$USER . /home/$USER/.local/share/chezmoi
 
 RUN <<-__EOF__
-    sh -c "$(curl -fsLS get.chezmoi.io)" -- -b ~/.local/bin apply
+    sh -c "$(curl -fsLS get.chezmoi.io)" -- -b ~/.local/bin init --apply --exclude=encrypted
 __EOF__
 
 CMD [ "bash", "--login" ]

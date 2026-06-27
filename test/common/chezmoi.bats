@@ -22,6 +22,14 @@
     fi
 }
 
+@test "repos/works directory exists" {
+    [[ -d "$HOME/repos/works" ]]
+}
+
+@test "gitconfig has includeIf for repos/works" {
+    grep -q 'includeIf "gitdir:~/repos/works/"' "$HOME/.gitconfig"
+}
+
 @test "zsh is installed" {
     command -v zsh
 }

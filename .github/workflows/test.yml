@@ -26,6 +26,6 @@ jobs:
           mkdir -p ~/.local/share
           ln -s "$GITHUB_WORKSPACE" ~/.local/share/chezmoi
           echo "$HOME/.local/bin" >> "$GITHUB_PATH"
-          sh -c "$(curl -fsLS get.chezmoi.io)" -- -b ~/.local/bin apply
+          sh -c "$(curl -fsLS get.chezmoi.io)" -- -b ~/.local/bin apply --exclude=encrypted
       - name: Run tests
         run: ~/.local/share/chezmoi/scripts/run_test.bash
