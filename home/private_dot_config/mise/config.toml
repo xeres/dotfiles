@@ -1,6 +1,9 @@
 [settings]
 minimum_release_age = "7d"
 
+[settings.node]
+gpg_verify = false
+
 [tools]
 node = "lts"
 uv = "latest"
