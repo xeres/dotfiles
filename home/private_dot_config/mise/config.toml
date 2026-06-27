@@ -9,3 +9,5 @@ node = "lts"
 uv = "latest"
 
 starship = "latest"
+
+gh = "latest"
