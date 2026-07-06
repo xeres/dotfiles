@@ -10,9 +10,11 @@ setup() {
     [[ "$output" == *"7d"* ]]
 }
 
-@test "npm applies min-release-age from npmrc" {
+@test "npm applies min-release-age cooldown from npmrc" {
+    # npm CLI #9368 (npm 11.14+) keeps min-release-age as a first-class
+    # config instead of converting it to a derived `before` date.
     run npm config list
-    [[ "$output" == *"before"* ]]
+    [[ "$output" == *"min-release-age = 7"* ]]
 }
 
 @test "uv exclude-newer is configured" {
