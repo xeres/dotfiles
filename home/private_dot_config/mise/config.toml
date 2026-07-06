@@ -9,6 +9,8 @@ node = "lts"
 uv = "latest"
 
 starship = "latest"
+herdr = "latest"
 
 gh = "latest"
 awscli = "latest"
+
