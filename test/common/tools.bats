@@ -32,3 +32,7 @@ setup() {
 @test "starship is available" {
     command -v starship
 }
+
+@test "herdr is available" {
+    command -v herdr
+}
