@@ -127,6 +127,11 @@ type = "pane"
 command = "yazi"
 
 [[keys.command]]
+key = "prefix+ctrl+h"
+type = "pane"
+command = "hunk"
+
+[[keys.command]]
 key = "prefix+ctrl+g"
 type = "pane"
 command = "lazygit"
