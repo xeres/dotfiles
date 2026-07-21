@@ -15,3 +15,5 @@ gh = "latest"
 awscli = "latest"
 
 op = "latest"
+
+hunk = "latest"
