@@ -126,6 +126,11 @@ key = "prefix+ctrl+y"
 type = "pane"
 command = "yazi"
 
+[[keys.command]]
+key = "prefix+ctrl+g"
+type = "pane"
+command = "lazygit"
+
 # Legacy indexed shortcut config is still parsed for compatibility.
 # Prefer switch_tab, switch_workspace, and focus_agent for new configs.
 # [keys.indexed]
