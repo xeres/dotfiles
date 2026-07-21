@@ -16,4 +16,5 @@ awscli = "latest"
 
 op = "latest"
 
+yazi = "latest"
 hunk = "latest"
