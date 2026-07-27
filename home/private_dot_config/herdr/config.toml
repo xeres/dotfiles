@@ -122,19 +122,29 @@ prefix = "ctrl+z"
 # type = "pane"
 # command = "lazygit"
 [[keys.command]]
-key = "prefix+ctrl+y"
-type = "pane"
-command = "yazi"
+key = "prefix+f"
+type = "plugin_action"
+command = "herdr-file-viewer.open-file-viewer"
 
 [[keys.command]]
-key = "prefix+ctrl+h"
-type = "pane"
-command = "hunk"
+key = "prefix+shift+f"
+type = "plugin_action"
+command = "herdr-file-viewer.open-file-viewer-tab"
 
 [[keys.command]]
 key = "prefix+ctrl+g"
 type = "pane"
 command = "lazygit"
+
+[[keys.command]]
+key = "prefix+ctrl+r"
+type = "plugin_action"
+command = "persiyanov.reviewr.toggle"   # <plugin_id>.<action_id> — note the id, not the name
+
+[[keys.command]]
+key = "prefix+ctrl+p"
+type = "plugin_action"
+command = "herdr-lazy.manage"
 
 # Legacy indexed shortcut config is still parsed for compatibility.
 # Prefer switch_tab, switch_workspace, and focus_agent for new configs.
