@@ -5,6 +5,8 @@ minimum_release_age = "7d"
 gpg_verify = false
 
 [tools]
+usage = "latest"
+
 node = "lts"
 uv = "latest"
 
