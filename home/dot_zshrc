@@ -57,23 +57,26 @@ setopt NO_AUTO_MENU               # 補完時に TAB キーで選択肢を移動
 setopt LIST_PACKED                # 補完候補を表示する際に表示を詰める
 
 # completion cache mechanism
-typeset -g _comp_dirty=0
 typeset -g _comp_cache=${XDG_CACHE_HOME:-$HOME/.cache}/zsh/completions
 [[ -d $_comp_cache ]] || mkdir -p $_comp_cache
 fpath=($_comp_cache $fpath)
+
+# 他シェルが生成中の .tmp を消さないよう、古い残骸だけを掃除する
+rm -f $_comp_cache/*.tmp(N.mh+1)
 
 _gen_comp() {
     local cmd=$1; shift
     (( $+commands[$cmd] )) || return
     local f=$_comp_cache/_$cmd
     # settings.minimum_release_age = "7d"
-    if [[ ! -s $f || -n $f(#qNm+7) ]]; then
-        if "$@" > $f.tmp 2>/dev/null; then
-            mv -f $f.tmp $f
-            _comp_dirty=1
-        else
-            rm -f $f.tmp
-        fi
+    # グロブ修飾子は [[ ]] の中では展開されないため、条件式の外で評価する
+    local -a fresh=( $f(N.L+0ms-7) )
+    (( $#fresh )) && return
+    local tmp=$f.$$.tmp
+    if "$@" > $tmp 2>/dev/null && [[ -s $tmp ]]; then
+        mv -f $tmp $f
+    else
+        rm -f $tmp
     fi
 }
 
@@ -87,8 +90,8 @@ _gen_comp op       op completion zsh
 _gen_comp lazygit  lazygit completion zsh
 unfunction _gen_comp
 
-(( _comp_dirty )) && command rm -f ${ZDOTDIR:-$HOME}/.zcompdump{,.zwc}
-unset _comp_dirty _comp_cache
+# .zcompdump は compinit が dump の #files と実際の本数を比べて作り直すので消さない
+unset _comp_cache
 
 zicompinit
 zicdreplay
