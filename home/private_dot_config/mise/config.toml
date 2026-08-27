@@ -19,3 +19,6 @@ awscli = "latest"
 op = "latest"
 
 lazygit = "latest"
+
+jq = "latest"
+yq = "latest"
