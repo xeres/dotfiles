@@ -16,6 +16,13 @@
 - When: mise install が完了する
 - Then: `uv` コマンドが利用可能である
 
+## Python
+
+- When: mise install が完了する
+- Then: `python` コマンドが利用可能である
+- Then: `UV_PYTHON` が mise の python パスを指す
+- Then: `uv` が mise 管理の python 実体を使用する
+
 ## GitHub CLI
 
 - When: mise install が完了する

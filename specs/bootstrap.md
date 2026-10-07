@@ -3,13 +3,8 @@
 ## ファイル配置
 
 - When: chezmoi apply を実行する
-- Then: `~/.zshrc` が配置される
-- Then: `~/.zshenv` が配置される
-- Then: `~/.gitconfig` が配置される
-- Then: `~/.npmrc` が配置される
-- Then: `~/.vimrc` が配置される
-- Then: `~/.config/mise/config.toml` が配置される
-- Then: `~/.config/uv/uv.toml` が配置される
+- Then: 管理対象の dotfiles がホームディレクトリに配置される
+  (対象ファイルの一覧は `test/common/bootstrap.bats` を正とする)
 
 ## ディレクトリ構造
 

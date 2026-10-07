@@ -21,6 +21,21 @@ setup() {
     command -v uv
 }
 
+@test "python is available" {
+    command -v python
+}
+
+@test "UV_PYTHON points to the mise-managed python" {
+    [ -n "$UV_PYTHON" ]
+    [ "$(cd "$(dirname "$UV_PYTHON/bin/python")" && pwd -P)" \
+      = "$(cd "$(dirname "$(mise which python)")" && pwd -P)" ]
+}
+
+@test "uv uses the mise-managed python" {
+    [ "$(cd "$(dirname "$(uv python find)")" && pwd -P)" \
+      = "$(cd "$(dirname "$(mise which python)")" && pwd -P)" ]
+}
+
 @test "gh is available" {
     command -v gh
 }
