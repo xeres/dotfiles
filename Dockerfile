@@ -1,8 +1,8 @@
 # syntax=docker/dockerfile:1
-FROM ubuntu:22.04
+FROM ubuntu:24.04
 
 ARG USER=testuser
-ARG USER_UID=1000
+ARG USER_UID=1001
 ARG USER_GID=$USER_UID
 
 ENV \
