@@ -32,7 +32,10 @@ ENV \
 WORKDIR /home/$USER
 COPY --chown=$USER:$USER . /home/$USER/.local/share/chezmoi
 
-RUN <<-__EOF__
+RUN --mount=type=secret,id=github_token,uid=$USER_UID <<-__EOF__
+    if [ -f /run/secrets/github_token ]; then
+        export GITHUB_TOKEN="$(cat /run/secrets/github_token)"
+    fi
     sh -c "$(curl -fsLS get.chezmoi.io)" -- -b ~/.local/bin init --apply --exclude=encrypted
 __EOF__
 
