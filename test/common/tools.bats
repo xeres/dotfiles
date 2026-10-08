@@ -32,7 +32,7 @@ setup() {
 }
 
 @test "uv uses the mise-managed python" {
-    [ "$(cd "$(dirname "$(uv python find)")" && pwd -P)" \
+    [ "$(cd "$(dirname "$(uv python find --no-python-downloads)")" && pwd -P)" \
       = "$(cd "$(dirname "$(mise which python)")" && pwd -P)" ]
 }
 
