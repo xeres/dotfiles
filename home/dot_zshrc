@@ -86,7 +86,6 @@ _gen_comp uv       uv generate-shell-completion zsh
 _gen_comp starship starship completions zsh
 _gen_comp herdr    herdr completion zsh
 _gen_comp gh       gh completion -s zsh
-_gen_comp op       op completion zsh
 _gen_comp lazygit  lazygit completion zsh
 unfunction _gen_comp
 
