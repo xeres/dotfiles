@@ -51,3 +51,19 @@ setup() {
 @test "herdr is available" {
     command -v herdr
 }
+
+@test "op is available" {
+    command -v op
+}
+
+@test "lazygit is available" {
+    command -v lazygit
+}
+
+@test "jq is available" {
+    command -v jq
+}
+
+@test "yq is available" {
+    command -v yq
+}

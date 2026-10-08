@@ -37,3 +37,28 @@
 
 - When: mise install が完了する
 - Then: `starship` コマンドが利用可能である
+
+## herdr
+
+- When: mise install が完了する
+- Then: `herdr` コマンドが利用可能である
+
+## 1Password CLI
+
+- When: mise install が完了する
+- Then: `op` コマンドが利用可能である
+
+## lazygit
+
+- When: mise install が完了する
+- Then: `lazygit` コマンドが利用可能である
+
+## jq
+
+- When: mise install が完了する
+- Then: `jq` コマンドが利用可能である
+
+## yq
+
+- When: mise install が完了する
+- Then: `yq` コマンドが利用可能である
