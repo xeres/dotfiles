@@ -73,7 +73,8 @@ _gen_comp() {
     local -a fresh=( $f(N.L+0ms-7) )
     (( $#fresh )) && return
     local tmp=$f.$$.tmp
-    if "$@" > $tmp 2>/dev/null && [[ -s $tmp ]]; then
+    # 常駐する op daemon に呼び出し元の fd を継承させない
+    if ( for fd in /dev/fd/<3->(N:t); do exec {fd}>&-; done; "$@" ) > $tmp 2>/dev/null && [[ -s $tmp ]]; then
         mv -f $tmp $f
     else
         rm -f $tmp
