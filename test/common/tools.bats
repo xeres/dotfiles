@@ -32,7 +32,9 @@ setup() {
 }
 
 @test "uv uses the mise-managed python" {
-    [ "$(cd "$(dirname "$(uv python find --no-python-downloads)")" && pwd -P)" \
+    local uv_py
+    uv_py="$(uv run --no-project --no-python-downloads python -c 'import sys; print(sys.executable)')"
+    [ "$(cd "$(dirname "$uv_py")" && pwd -P)" \
       = "$(cd "$(dirname "$(mise which python)")" && pwd -P)" ]
 }
 
