@@ -29,5 +29,14 @@ jobs:
           ln -s "$GITHUB_WORKSPACE" ~/.local/share/chezmoi
           echo "$HOME/.local/bin" >> "$GITHUB_PATH"
           sh -c "$(curl -fsLS get.chezmoi.io)" -- -b ~/.local/bin apply --exclude=encrypted
+      - name: "[TEMP DIAG] background processes left by zsh -i"
+        run: |
+          set -x
+          export PATH="$HOME/.local/bin:$HOME/.local/share/mise/shims:$PATH"
+          zsh -i -c 'whence zinit' </dev/null >/dev/null 2>&1 || true
+          sleep 2
+          pgrep -fl 'op daemon' || echo "no op daemon"
+          for p in $(pgrep -f 'op daemon'); do ps -o pid,ppid,etime,command -p "$p" || true; lsof -nP -p "$p" | grep -v -E 'txt|cwd|DIR|KQUEUE|PSXSHM|\.dylib' || true; done
+          op --version || true
       - name: Run tests
         run: ~/.local/share/chezmoi/scripts/run_test.bash
