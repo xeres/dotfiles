@@ -29,5 +29,16 @@ jobs:
           ln -s "$GITHUB_WORKSPACE" ~/.local/share/chezmoi
           echo "$HOME/.local/bin" >> "$GITHUB_PATH"
           sh -c "$(curl -fsLS get.chezmoi.io)" -- -b ~/.local/bin apply --exclude=encrypted
+      - name: "[TEMP DIAG] who holds the bats pipe"
+        run: |
+          export PATH="$HOME/.local/bin:$HOME/.local/share/mise/shims:$PATH"
+          echo "### processes before"; ps -axo pid,ppid,user,command | grep -E "^ *[0-9]+ +[0-9]+ +runner" | grep -v -E "Runner|grep|ps -axo" || true
+          echo "### bats shell.bats (90s alarm)"
+          perl -e 'alarm shift; exec @ARGV' 90 bats ~/.local/share/chezmoi/test/common/shell.bats; echo "bats exit=$?"
+          echo "### processes after"; ps -axo pid,ppid,user,etime,command | grep -E "^ *[0-9]+ +[0-9]+ +runner" | grep -v -E "Runner|grep|ps -axo" || true
+          echo "### runner-owned PIPE/FIFO fds"; lsof -nP -u "$(id -un)" 2>/dev/null | grep -E "PIPE|FIFO" | grep -v -E "Runner|Listener" || true
+          echo "### op daemon details"; for p in $(pgrep -f 'op daemon'); do lsof -nP -p "$p" 2>/dev/null | grep -v -E "txt|cwd|DIR|KQUEUE|PSXSHM|\.dylib" || true; done
+          echo "### orphan procs by name"; pgrep -fl 'op|herdr|mise|starship|uv|gh |lazygit|zsh|bats' || true
+          true
       - name: Run tests
         run: ~/.local/share/chezmoi/scripts/run_test.bash
