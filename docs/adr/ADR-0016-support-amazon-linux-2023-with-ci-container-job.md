@@ -1,6 +1,6 @@
 ---
 title: ADR-0016 Amazon Linux 2023 を対応プラットフォームに加え CI のコンテナジョブでテストする
-status: Proposed
+status: Accepted
 date: 2026-11-12
 ---
 
