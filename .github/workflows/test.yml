@@ -31,3 +31,30 @@ jobs:
           sh -c "$(curl -fsLS get.chezmoi.io)" -- -b ~/.local/bin apply --exclude=encrypted
       - name: Run tests
         run: ~/.local/share/chezmoi/scripts/run_test.bash
+
+  test-amazonlinux:
+    runs-on: ubuntu-24.04
+    container: amazonlinux:2023
+    env:
+      # Container jobs run as root without USER set; scripts and tests rely on it.
+      USER: root
+    steps:
+      # The base image lacks the tools that checkout, chezmoi and mise need.
+      # libatomic is intentionally NOT installed here: chezmoi apply must install it.
+      - name: Install prerequisites
+        run: dnf install --assumeyes git tar gzip sudo findutils
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - name: Install bats
+        run: |
+          git clone --depth 1 --branch v1.13.0 https://github.com/bats-core/bats-core.git /tmp/bats-core
+          /tmp/bats-core/install.sh /usr/local
+      - name: Install chezmoi and apply
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          mkdir -p ~/.local/share
+          ln -s "$GITHUB_WORKSPACE" ~/.local/share/chezmoi
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+          sh -c "$(curl -fsLS get.chezmoi.io)" -- -b ~/.local/bin apply --exclude=encrypted
+      - name: Run tests
+        run: ~/.local/share/chezmoi/scripts/run_test.bash
