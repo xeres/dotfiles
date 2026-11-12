@@ -7,7 +7,15 @@ TEST_DIR="$SCRIPT_DIR/../test"
 # OS 検出
 case "$(uname -s)" in
   Darwin) os=macos ;;
-  Linux)  os=ubuntu ;;
+  Linux)
+    # shellcheck source=/dev/null
+    . /etc/os-release
+    case " ${ID:-} ${ID_LIKE:-} " in
+      *" debian "*) os=ubuntu ;;
+      *" fedora "*) os=fedora ;;
+      *) echo "Unsupported Linux distribution: ${ID:-unknown}" >&2; exit 1 ;;
+    esac
+    ;;
   *)      echo "Unsupported OS: $(uname -s)" >&2; exit 1 ;;
 esac
 
