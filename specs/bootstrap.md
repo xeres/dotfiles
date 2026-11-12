@@ -23,7 +23,6 @@
 - Then: `zsh` コマンドが利用可能である
 - Then: ログインシェルが zsh である
 - Then: `libatomic1` パッケージがインストールされている
-  (mise で入れる node の公式 Linux ビルドが `libatomic.so.1` を動的リンクするため)
 - Then: `libatomic.so.1` が動的リンカから解決できる
 
 ## Linux (Fedora系)
@@ -32,6 +31,5 @@
 - Then: `zsh` コマンドが利用可能である
 - Then: ログインシェルが zsh である
 - Then: `libatomic` パッケージがインストールされている
-  (mise で入れる node の公式 Linux ビルドが `libatomic.so.1` を動的リンクするため)
 - Then: `libatomic.so.1` が動的リンカから解決できる
   (CI では Amazon Linux 2023 で検証する)
