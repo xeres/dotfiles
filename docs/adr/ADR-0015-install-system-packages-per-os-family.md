@@ -1,6 +1,6 @@
 ---
 title: ADR-0015 mise ツールが必要とするシステムパッケージを OS ファミリーごとの install スクリプトで導入する
-status: Proposed
+status: Accepted
 date: 2026-11-12
 ---
 
