@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+{{ if eq .chezmoi.os "linux" -}}
+{{     $id := get .chezmoi.osRelease "id" | default "" -}}
+{{     $idLike := get .chezmoi.osRelease "idLike" | default "" -}}
+{{     if or (eq $id "debian") (eq $idLike "debian") -}}
+{{         include "../install/ubuntu/packages.sh" -}}
+{{     else if or (eq $id "fedora") (contains "fedora" $idLike) -}}
+{{         include "../install/fedora/packages.sh" -}}
+{{     end -}}
+{{ end -}}
