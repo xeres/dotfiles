@@ -1,6 +1,6 @@
 ---
 title: ADR-0016 Amazon Linux 2023 を対応プラットフォームに加え CI のコンテナジョブでテストする
-status: Proposed
+status: Accepted
 date: 2026-11-12
 ---
 
@@ -20,7 +20,7 @@ Amazon Linux 2023 を対応プラットフォームに加え、CI では GitHub 
 
 - `install/fedora/zsh.sh` を追加し、`run_once_after_10-install-zsh.bash.tmpl` に Fedora 系の分岐を足す。素の AL2023 には `chsh` が無いので、`zsh` とあわせて `util-linux-user` を入れる。
 - `scripts/run_test.bash` は `/etc/os-release` の `ID` と `ID_LIKE` から `ubuntu` と `fedora` を判定し、`test/fedora/` を実行する。
-- `.github/workflows/test.yml` に、`container: amazonlinux:2023` で動く `test-amazonlinux` ジョブを追加する。手順は既存の `test` ジョブと同じく、checkout、chezmoi apply、`run_test.bash` の順に実行する。
+- `.github/workflows/test.yml` に、`container: amazonlinux:2023` で動く `test (amazonlinux-2023)` ジョブを追加する。ジョブ名は既存の `test (ubuntu-24.04)` / `test (macos-26)` に揃えて「OS 名-バージョン」とする。手順は既存の `test` ジョブと同じく、checkout、chezmoi apply、`run_test.bash` の順に実行する。
   - 素のイメージに無い git、tar、gzip、sudo、findutils は、checkout の前に `dnf` で入れる。libatomic は chezmoi apply が入れることを確かめるため、ここでは入れない。
   - bats は AL2023 の標準リポジトリに無く、`bats-action` がコンテナ内で動く保証もないので、bats-core v1.13.0 を git clone して入れる。
   - コンテナは root で動き `USER` が設定されないため、ジョブで `USER=root` を設定する。

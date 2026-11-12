@@ -33,6 +33,7 @@ jobs:
         run: ~/.local/share/chezmoi/scripts/run_test.bash
 
   test-amazonlinux:
+    name: test (amazonlinux-2023)
     runs-on: ubuntu-24.04
     container: amazonlinux:2023
     env:
