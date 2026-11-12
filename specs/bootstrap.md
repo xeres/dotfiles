@@ -22,3 +22,12 @@
 - When: Debian 系 Linux で chezmoi apply を実行する
 - Then: `zsh` コマンドが利用可能である
 - Then: ログインシェルが zsh である
+- Then: `libatomic1` パッケージがインストールされている
+- Then: `libatomic.so.1` が動的リンカから解決できる
+
+## Linux (Fedora系)
+
+- When: Fedora 系 Linux (Fedora / RHEL / Amazon Linux 2023 など) で chezmoi apply を実行する
+- Then: `libatomic` パッケージがインストールされている
+- Then: `libatomic.so.1` が動的リンカから解決できる
+  (Fedora 系の自動テストは未整備)

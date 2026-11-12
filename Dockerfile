@@ -17,7 +17,6 @@ RUN <<-__EOF__
         bats \
         sudo \
         tzdata \
-        build-essential \
         ca-certificates
     groupadd --gid $USER_GID $USER
     useradd --uid $USER_UID --gid $USER_GID -m $USER -G sudo -s /bin/bash
