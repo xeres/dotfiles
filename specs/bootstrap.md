@@ -29,7 +29,9 @@
 ## Linux (Fedora系)
 
 - When: Fedora 系 Linux (Fedora / RHEL / Amazon Linux 2023 など) で chezmoi apply を実行する
+- Then: `zsh` コマンドが利用可能である
+- Then: ログインシェルが zsh である
 - Then: `libatomic` パッケージがインストールされている
   (mise で入れる node の公式 Linux ビルドが `libatomic.so.1` を動的リンクするため)
 - Then: `libatomic.so.1` が動的リンカから解決できる
-  (Fedora 系の自動テストは未整備)
+  (CI では Amazon Linux 2023 で検証する)

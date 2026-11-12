@@ -1,6 +1,6 @@
 # dotfiles
 
-dotfiles for Ubuntu and macOS, with partial support for Fedora-based Linux.
+dotfiles for Ubuntu, Amazon Linux 2023 and macOS.
 
 ## Supported platforms
 
@@ -8,7 +8,8 @@ dotfiles for Ubuntu and macOS, with partial support for Fedora-based Linux.
 |---|---|
 | macOS | Supported (tested in CI) |
 | Ubuntu / Debian-based | Supported (tested in CI and Docker) |
-| Fedora-based (Fedora, RHEL, Amazon Linux 2023, etc.) | Partial: installs system packages required by mise tools (e.g. `libatomic`). zsh is not installed or set as the login shell. Not tested in CI. |
+| Amazon Linux 2023 | Supported (tested in CI) |
+| Other Fedora-based (Fedora, RHEL, etc.) | Should work via the same scripts as Amazon Linux 2023. Not tested. |
 
 ## Concepts
 
